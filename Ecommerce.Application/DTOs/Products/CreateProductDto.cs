@@ -1,0 +1,30 @@
+﻿namespace Ecommerce.Application.DTOs.Products;
+
+public class CreateProductDto
+{
+    public string Name { get; set; } = string.Empty;
+
+    public string? ShortDescription { get; set; }
+
+    public string? Description { get; set; }
+
+    public decimal Price { get; set; }
+
+    public decimal? DiscountPrice { get; set; }
+
+    public string? Warranty { get; set; }
+
+    public bool IsFeatured { get; set; }
+
+    public bool IsBestSeller { get; set; }
+
+    public bool IsNewArrival { get; set; }
+
+    public bool IsActive { get; set; } = true;
+
+    public int SortOrder { get; set; }
+
+    public int CategoryId { get; set; }
+
+    public int? BrandId { get; set; }
+}

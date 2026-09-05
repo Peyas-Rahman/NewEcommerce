@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+:root {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #111827;
+  background: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #ff6b00;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+.form-textarea {
+  width: 100%;
+  resize: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  padding: 12px;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+}
+
+.form-textarea:focus {
+  border-color: #ff6b00;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+
+/* =========================================================
+   PRODUCT FORM
+========================================================= */
+
+.form-label {
+  display: block !important;
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-input {
+  display: block !important;
+  width: 100% !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 12px !important;
+
+  border: 1px solid #dbe3ec !important;
+  border-radius: 9px !important;
+
+  background: #ffffff !important;
+
+  font-size: 14px !important;
+  line-height: 20px !important;
+  color: #1e293b !important;
+
+  outline: none !important;
+  box-sizing: border-box !important;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+.form-input:focus {
+  border-color: #ff6b00 !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.10) !important;
+}
+
+.form-textarea {
+  display: block !important;
+  width: 100% !important;
+  min-height: 100px !important;
+
+  padding: 11px 12px !important;
+
+  border: 1px solid #dbe3ec !important;
+  border-radius: 9px !important;
+
+  background: #ffffff !important;
+
+  font-size: 14px !important;
+  line-height: 21px !important;
+  color: #1e293b !important;
+
+  outline: none !important;
+  box-sizing: border-box !important;
+
+  resize: vertical;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.form-textarea:focus {
+  border-color: #ff6b00 !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.10) !important;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+select.form-input {
+  cursor: pointer;
+  appearance: auto;
+}
+
+
+/* =========================================================
+   NUMBER INPUT
+========================================================= */
+
+input[type="number"].form-input {
+  appearance: auto;
+}
+
+
+/* =========================================================
+   MODAL RESPONSIVE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .form-input {
+    height: 42px !important;
+    min-height: 42px !important;
+  }
+
+  .form-textarea {
+    min-height: 90px !important;
+  }
+
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-label span {
+  color: #ef4444;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  border: 1px solid #dbe3ec;
+  border-radius: 9px;
+  background: #fff;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+  transition: all .15s ease;
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+.form-input:focus {
+  border-color: #ff6b00;
+  box-shadow: 0 0 0 3px rgba(255,107,0,.10);
+}
+
+select.form-input {
+  cursor: pointer;
+}
+
+.editor-btn {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #64748b;
+}
+
+.editor-btn:hover {
+  background: #e2e8f0;
+  color: #ff6b00;
+}
+
+.product-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #dbe3ee;
+  border-radius: 8px;
+  padding: 0 13px;
+  font-size: 14px;
+  color: #334155;
+  background: #fff;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #ff6b00;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.08);
+}
+
+.rich-editor {
+  min-height: 170px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #334155;
+  outline: none;
+}
+
+.rich-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.rich-editor ul {
+  list-style-type: disc !important;
+  padding-left: 28px !important;
+  margin: 8px 0 !important;
+}
+
+.rich-editor ol {
+  list-style-type: decimal !important;
+  padding-left: 28px !important;
+  margin: 8px 0 !important;
+}
+
+.rich-editor li {
+  display: list-item !important;
+  margin: 3px 0 !important;
+}
+
+.rich-editor a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.submenu-parent { position: relative; }
+.submenu-panel { visibility: hidden; opacity: 0; pointer-events: none; transform: translateX(-4px); transition: opacity .18s ease, transform .18s ease, visibility .18s ease; }
+.submenu-parent:hover > .submenu-panel { visibility: visible; opacity: 1; pointer-events: auto; transform: translateX(0); }
+
+@media (min-width: 1024px) {
+  .grid[class~="lg:grid-cols-4"] { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
