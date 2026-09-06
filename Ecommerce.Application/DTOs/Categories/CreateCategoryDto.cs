@@ -12,5 +12,7 @@ public class CreateCategoryDto
 
     public bool IsActive { get; set; } = true;
 
+    public bool IsFeatured { get; set; }
+
     public int SortOrder { get; set; }
 }

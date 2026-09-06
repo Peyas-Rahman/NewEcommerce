@@ -8,6 +8,7 @@ using Ecommerce.Infrastructure.Services.Checkout;
 using Ecommerce.Infrastructure.Services.Customers;
 using Ecommerce.Infrastructure.Services.Inventory;
 using Ecommerce.Infrastructure.Services.Menu;
+using Ecommerce.Infrastructure.Services.HomepageSliders;
 using Ecommerce.Infrastructure.Services.Order;
 using Ecommerce.Infrastructure.Services.Payment;
 using Ecommerce.Infrastructure.Services.ProductImages;
@@ -205,6 +206,8 @@ builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<
     IHeaderMenuSettingService,
     HeaderMenuSettingService>();
+
+builder.Services.AddScoped<IHomepageSliderService, HomepageSliderService>();
 
 // =====================================================
 // Authentication - JWT

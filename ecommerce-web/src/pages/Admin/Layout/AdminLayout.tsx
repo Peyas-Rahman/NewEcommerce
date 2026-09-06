@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Menu,
   PanelTop,
+  Images,
   PackageSearch,
   ShoppingCart,
   Store,
@@ -86,6 +87,12 @@ const menuItems = [
     label: "Header Settings",
     path: "/admin/header-settings",
     icon: PanelTop,
+    available: true,
+  },
+  {
+    label: "Homepage Slider",
+    path: "/admin/homepage-slider",
+    icon: Images,
     available: true,
   },
 ];

@@ -285,6 +285,22 @@ public class ProductService : IProductService
         };
     }
 
+    public async Task<ProductDetailsDto?> GetDetailsBySlugAsync(string slug)
+    {
+        var product = await _context.Products
+            .AsNoTracking()
+            .Where(x =>
+                x.Slug == slug &&
+                !x.IsDeleted &&
+                x.IsActive)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
+
+        return product == 0
+            ? null
+            : await GetDetailsAsync(product);
+    }
+
     // =========================================================
     // SEARCH / FILTER / SORT / PAGINATION
     // =========================================================
@@ -578,6 +594,20 @@ public class ProductService : IProductService
                 "Discount price must be lower than regular price.");
         }
 
+        var slug = GenerateSlug(dto.Name);
+
+        var duplicateSlugExists =
+            await _context.Products
+                .AnyAsync(x =>
+                    !x.IsDeleted &&
+                    x.Slug == slug);
+
+        if (duplicateSlugExists)
+        {
+            throw new ArgumentException(
+                "Product name already exists.");
+        }
+
         var sku =
             await GenerateUniqueSkuAsync(
                 dto.Name);
@@ -589,7 +619,7 @@ public class ProductService : IProductService
                     dto.Name.Trim(),
 
                 Slug =
-                    GenerateSlug(dto.Name),
+                    slug,
 
                 SKU =
                     sku,
@@ -723,11 +753,26 @@ public class ProductService : IProductService
                 "Discount price must be lower than regular price.");
         }
 
+        var slug = GenerateSlug(dto.Name);
+
+        var duplicateSlugExists =
+            await _context.Products
+                .AnyAsync(x =>
+                    x.Id != id &&
+                    !x.IsDeleted &&
+                    x.Slug == slug);
+
+        if (duplicateSlugExists)
+        {
+            throw new ArgumentException(
+                "Product name already exists.");
+        }
+
         product.Name =
             dto.Name.Trim();
 
         product.Slug =
-            GenerateSlug(dto.Name);
+            slug;
 
         product.ShortDescription =
             dto.ShortDescription?.Trim();

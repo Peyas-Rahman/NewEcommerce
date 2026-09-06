@@ -38,6 +38,7 @@ import type { Category } from "../../types/category";
 import productService from "../../services/productService";
 import type { Product } from "../../types/product";
 import { assetUrl } from "../../services/media";
+import MobileBottomNav from "./MobileBottomNav";
 
 function menuHref(item: Pick<MenuItem, "url" | "categoryId">) {
   return item.categoryId ? `/shop?category=${item.categoryId}` : item.url || "/shop";
@@ -368,8 +369,8 @@ export default function Header() {
 
               {/* OFFERS */}
 
-              <button
-                type="button"
+              <a
+                href="/shop?offer=discount"
                 className="
                   group
                   flex
@@ -406,7 +407,7 @@ export default function Header() {
                   HOT
                 </span>
 
-              </button>
+              </a>
 
 
               <div className="h-3.5 w-px bg-white/15" />
@@ -414,8 +415,8 @@ export default function Header() {
 
               {/* FLASH DEALS */}
 
-              <button
-                type="button"
+              <a
+                href="/shop?deal=flash"
                 className="
                   group
                   flex
@@ -452,7 +453,7 @@ export default function Header() {
                   NEW
                 </span>
 
-              </button>
+              </a>
 
 
               <div
@@ -468,8 +469,8 @@ export default function Header() {
 
               {/* NEW ARRIVALS */}
 
-              <button
-                type="button"
+              <a
+                href="/shop?new=true"
                 className="
                   hidden
                   items-center
@@ -492,7 +493,7 @@ export default function Header() {
                   New Arrivals
                 </span>
 
-              </button>
+              </a>
 
             </div>
 
@@ -661,7 +662,7 @@ export default function Header() {
 
               </div>
 
-              {suggestions.length > 0 && <div className="absolute left-1/2 top-[52px] z-[99999] w-full max-w-[650px] -translate-x-1/2 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.16)]"><div className="p-2">{suggestions.map((product) => <a key={product.id} href={`/product/${product.id}`} className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-orange-50"><img src={assetUrl(product.images?.[0]?.imageUrl)} alt="" className="h-10 w-10 rounded-md bg-slate-50 object-contain" /><span className="min-w-0"><span className="block truncate text-sm font-semibold text-slate-800">{product.name}</span><span className="block text-xs text-slate-400">{product.categoryName || "Product"} · {money(product.effectivePrice ?? product.price)}</span></span></a>)}</div><button type="button" onClick={submitSearch} className="w-full border-t border-slate-100 px-4 py-2.5 text-left text-xs font-bold text-orange-600 hover:bg-orange-50">View all results for “{searchTerm.trim()}”</button></div>}
+              {suggestions.length > 0 && <div className="absolute left-1/2 top-[52px] z-[99999] w-full max-w-[650px] -translate-x-1/2 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.16)]"><div className="p-2">{suggestions.map((product) => <a key={product.id} href={`/product/${product.slug}`} className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-orange-50"><img src={assetUrl(product.images?.[0]?.imageUrl)} alt="" className="h-10 w-10 rounded-md bg-slate-50 object-contain" /><span className="min-w-0"><span className="block truncate text-sm font-semibold text-slate-800">{product.name}</span><span className="block text-xs text-slate-400">{product.categoryName || "Product"} · {money(product.effectivePrice ?? product.price)}</span></span></a>)}</div><button type="button" onClick={submitSearch} className="w-full border-t border-slate-100 px-4 py-2.5 text-left text-xs font-bold text-orange-600 hover:bg-orange-50">View all results for “{searchTerm.trim()}”</button></div>}
 
             </div>
 
@@ -1452,6 +1453,7 @@ export default function Header() {
 
       )}
 
+      <MobileBottomNav />
     </>
   );
 }

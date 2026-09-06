@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Eye,
   EyeOff,
+  Upload,
 } from "lucide-react";
 
 import type {
@@ -37,6 +38,7 @@ const emptyForm: CreateCategory = {
   imageUrl: "",
   parentCategoryId: null,
   isActive: true,
+  isFeatured: false,
   sortOrder: 1,
 };
 
@@ -65,6 +67,18 @@ const getImageUrl = (url?: string | null) => {
   }
 
   return url.startsWith("/") ? url : `/${url}`;
+};
+
+const uploadCategoryImage = async (file: File) => {
+  const data = new FormData();
+  data.append("file", file);
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || "/api"}/uploads/images`, {
+    method: "POST",
+    body: data,
+  });
+  if (!response.ok) throw new Error("Unable to upload category icon.");
+  const result = await response.json();
+  return result.imageUrl || result.url || result.path;
 };
 
 /*
@@ -439,6 +453,8 @@ export default function CategoryManagement() {
         null,
       isActive:
         category.isActive,
+      isFeatured:
+        category.isFeatured,
       sortOrder:
         category.sortOrder,
     });
@@ -555,6 +571,8 @@ export default function CategoryManagement() {
             : null,
         isActive:
           form.isActive,
+        isFeatured:
+          form.isFeatured,
         sortOrder:
           Number(form.sortOrder) || 0,
       };
@@ -1729,6 +1747,10 @@ export default function CategoryManagement() {
                       focus:ring-orange-100
                     "
                   />
+                  <label className="mt-2 flex h-10 cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 text-xs font-semibold text-slate-600 hover:border-orange-400 hover:text-orange-600">
+                    <Upload size={15} /> Upload icon
+                    <input type="file" accept=".jpg,.jpeg,.png,.webp" className="hidden" onChange={async (event) => { const file = event.target.files?.[0]; if (!file) return; try { setSaving(true); handleChange("imageUrl", await uploadCategoryImage(file)); } catch (error: any) { setError(error.message || "Unable to upload category icon."); } finally { setSaving(false); } }} />
+                  </label>
                 </div>
 
                 {/* SORT */}
@@ -1871,6 +1893,11 @@ export default function CategoryManagement() {
                   >
                     Active Category
                   </span>
+                </label>
+
+                <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 px-4 py-3">
+                  <input type="checkbox" checked={form.isFeatured} onChange={(e) => handleChange("isFeatured", e.target.checked)} className="h-4 w-4 accent-[#ff6b00]" />
+                  <span className="text-sm font-medium text-slate-700">Show in Featured Category</span>
                 </label>
               </div>
             </div>

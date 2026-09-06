@@ -7,6 +7,7 @@ export interface Category {
 	parentCategoryId?: number | null;
 	sortOrder: number;
 	isActive: boolean;
+	isFeatured: boolean;
 	children?: Category[];
 }
 
@@ -18,6 +19,7 @@ export interface CreateCategory {
 	parentCategoryId?: number | null;
 	sortOrder: number;
 	isActive: boolean;
+	isFeatured: boolean;
 }
 
 export type UpdateCategory = CreateCategory;

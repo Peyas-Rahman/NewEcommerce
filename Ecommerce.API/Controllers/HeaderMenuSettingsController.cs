@@ -27,14 +27,6 @@ public class HeaderMenuSettingsController : ControllerBase
     {
         var setting = await _service.GetAsync();
 
-        if (setting is null)
-        {
-            return NotFound(new
-            {
-                message = "Header menu settings not found."
-            });
-        }
-
         return Ok(setting);
     }
 

@@ -1,1 +1,133 @@
-import{useEffect,useState}from"react";import{ArrowLeft,Package,MapPin,Wallet}from"lucide-react";import Header from"../../../components/layout/Header";import customerService from"../../../services/customerService";const money=(n:number)=>`৳${new Intl.NumberFormat("en-BD").format(n||0)}`;export default function OrderDetailPage({id}:{id:number}){const[o,setO]=useState<any>(null),[error,setError]=useState("");useEffect(()=>{customerService.getOrder(id).then(setO).catch(e=>setError(e?.response?.data?.message||"Order not found"))},[id]);return <div className="min-h-screen bg-[#f7f8fa]"><Header/><main className="mx-auto max-w-[1000px] px-4 py-8 md:px-6"><a href="/account" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500"><ArrowLeft className="h-4 w-4"/> My Account</a>{error?<div className="mt-8 rounded-2xl bg-red-50 p-6 text-red-700">{error}</div>:!o?<div className="py-20 text-center text-slate-400">Loading order...</div>:<><div className="mt-5 flex flex-col justify-between gap-4 rounded-3xl bg-[#07111f] p-6 text-white sm:flex-row sm:items-center"><div><p className="text-xs text-white/50">Order</p><h1 className="text-2xl font-black">#{o.orderNumber}</h1><p className="mt-1 text-xs text-white/50">{new Date(o.createdAt).toLocaleString("en-BD")}</p></div><span className="rounded-full bg-orange-500/20 px-4 py-2 text-xs font-bold text-orange-300">{o.orderStatus}</span></div><div className="mt-6 grid gap-5 lg:grid-cols-[1fr_320px]"><section className="space-y-4"><div className="rounded-2xl border border-slate-200 bg-white p-5"><div className="flex items-center gap-2"><Package className="h-5 w-5 text-orange-600"/><h2 className="font-black">Items</h2></div>{o.items?.map((i:any)=><div key={i.id} className="mt-4 flex items-center justify-between gap-3 border-b border-slate-100 pb-4 last:border-0 last:pb-0"><div><p className="font-bold">{i.productName}</p><p className="text-xs text-slate-400">{i.variantName||i.sku} × {i.quantity}</p></div><p className="font-black">{money(i.totalPrice)}</p></div>)}</div><div className="rounded-2xl border border-slate-200 bg-white p-5"><div className="flex items-center gap-2"><MapPin className="h-5 w-5 text-orange-600"/><h2 className="font-black">Delivery</h2></div><p className="mt-4 font-bold">{o.shippingName}</p><p className="mt-1 text-sm text-slate-600">{o.shippingPhone}</p><p className="mt-2 text-sm text-slate-600">{o.shippingAddress}{o.shippingArea?`, ${o.shippingArea}`:""}{o.shippingCity?`, ${o.shippingCity}`:""}</p></div></section><aside className="h-fit rounded-2xl border border-slate-200 bg-white p-5"><div className="flex items-center gap-2"><Wallet className="h-5 w-5 text-orange-600"/><h2 className="font-black">Summary</h2></div><Row label="Subtotal" value={o.subTotal}/><Row label="Discount" value={-o.discountAmount}/><Row label="Shipping" value={o.shippingAmount}/><Row label="Tax" value={o.taxAmount}/><div className="my-4 border-t"/><Row label="Grand Total" value={o.grandTotal} strong/><p className="mt-4 text-xs text-slate-500">Payment: {o.paymentMethod} • {o.paymentStatus}</p></aside></div></>}</main></div>};function Row({label,value,strong}:{label:string;value:number;strong?:boolean}){return <div className={`mt-3 flex justify-between text-sm ${strong?"text-lg font-black":""}`}><span className={strong?"":"text-slate-500"}>{label}</span><span>{money(value)}</span></div>}
+import { useEffect, useState } from "react";
+import { ArrowLeft, Download, Package, MapPin, Wallet } from "lucide-react";
+import Header from "../../../components/layout/Header";
+import customerService from "../../../services/customerService";
+const money = (n: number) =>
+  `৳${new Intl.NumberFormat("en-BD").format(n || 0)}`;
+export default function OrderDetailPage({ id }: { id: number }) {
+  const [o, setO] = useState<any>(null),
+    [error, setError] = useState("");
+  useEffect(() => {
+    customerService
+      .getOrder(id)
+      .then(setO)
+      .catch((e) => setError(e?.response?.data?.message || "Order not found"));
+  }, [id]);
+  return (
+    <div className="min-h-screen bg-[#f7f8fa]">
+      <Header />
+      <main className="mx-auto max-w-[1000px] px-4 py-8 md:px-6">
+        <a
+          href="/account"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500"
+        >
+          <ArrowLeft className="h-4 w-4" /> My Account
+        </a>
+        {error ? (
+          <div className="mt-8 rounded-2xl bg-red-50 p-6 text-red-700">
+            {error}
+          </div>
+        ) : !o ? (
+          <div className="py-20 text-center text-slate-400">
+            Loading order...
+          </div>
+        ) : (
+          <>
+            <div className="mt-5 flex flex-col justify-between gap-4 rounded-3xl bg-[#07111f] p-6 text-white sm:flex-row sm:items-center">
+              <div>
+                <p className="text-xs text-white/50">Order</p>
+                <h1 className="text-2xl font-black">#{o.orderNumber}</h1>
+                <p className="mt-1 text-xs text-white/50">
+                  {new Date(o.createdAt).toLocaleString("en-BD")}
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="rounded-full bg-orange-500/20 px-4 py-2 text-xs font-bold text-orange-300">
+                  {o.orderStatus}
+                </span>
+                <a
+                  href={`/invoice?id=${o.id}`}
+                  className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#ff6b00] px-4 text-xs font-bold text-white"
+                >
+                  <Download className="h-4 w-4" /> Invoice PDF
+                </a>
+              </div>
+            </div>
+            <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_320px]">
+              <section className="space-y-4">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <div className="flex items-center gap-2">
+                    <Package className="h-5 w-5 text-orange-600" />
+                    <h2 className="font-black">Items</h2>
+                  </div>
+                  {o.items?.map((i: any) => (
+                    <div
+                      key={i.id}
+                      className="mt-4 flex items-center justify-between gap-3 border-b border-slate-100 pb-4 last:border-0 last:pb-0"
+                    >
+                      <div>
+                        <p className="font-bold">{i.productName}</p>
+                        <p className="text-xs text-slate-400">
+                          {i.variantName || i.sku} × {i.quantity}
+                        </p>
+                      </div>
+                      <p className="font-black">{money(i.totalPrice)}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-orange-600" />
+                    <h2 className="font-black">Delivery</h2>
+                  </div>
+                  <p className="mt-4 font-bold">{o.shippingName}</p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    {o.shippingPhone}
+                  </p>
+                  <p className="mt-2 text-sm text-slate-600">
+                    {o.shippingAddress}
+                    {o.shippingArea ? `, ${o.shippingArea}` : ""}
+                    {o.shippingCity ? `, ${o.shippingCity}` : ""}
+                  </p>
+                </div>
+              </section>
+              <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-5">
+                <div className="flex items-center gap-2">
+                  <Wallet className="h-5 w-5 text-orange-600" />
+                  <h2 className="font-black">Summary</h2>
+                </div>
+                <Row label="Subtotal" value={o.subTotal} />
+                <Row label="Discount" value={-o.discountAmount} />
+                <Row label="Shipping" value={o.shippingAmount} />
+                <Row label="Tax" value={o.taxAmount} />
+                <div className="my-4 border-t" />
+                <Row label="Grand Total" value={o.grandTotal} strong />
+                <p className="mt-4 text-xs text-slate-500">
+                  Payment: {o.paymentMethod} • {o.paymentStatus}
+                </p>
+              </aside>
+            </div>
+          </>
+        )}
+      </main>
+    </div>
+  );
+}
+function Row({
+  label,
+  value,
+  strong,
+}: {
+  label: string;
+  value: number;
+  strong?: boolean;
+}) {
+  return (
+    <div
+      className={`mt-3 flex justify-between text-sm ${strong ? "text-lg font-black" : ""}`}
+    >
+      <span className={strong ? "" : "text-slate-500"}>{label}</span>
+      <span>{money(value)}</span>
+    </div>
+  );
+}

@@ -24,12 +24,22 @@ public class HeaderMenuSettingService : IHeaderMenuSettingService
     public async Task<HeaderMenuSettingDto?> GetAsync()
     {
         var setting = await _context.HeaderMenuSettings
-            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.IsActive);
 
         if (setting == null)
         {
-            return null;
+            setting = new HeaderMenuSetting
+            {
+                Alignment = "Left",
+                Spacing = "Normal",
+                ShowAllCategories = true,
+                ShowDeals = true,
+                IsSticky = true,
+                IsActive = true
+            };
+
+            _context.HeaderMenuSettings.Add(setting);
+            await _context.SaveChangesAsync();
         }
 
         return MapToDto(setting);

@@ -100,6 +100,14 @@ export async function getDetails(id: number) {
   return response.data;
 }
 
+export async function getDetailsBySlug(slug: string) {
+  const response = await api.get(
+    `/Products/slug/${encodeURIComponent(slug)}/details`,
+  );
+
+  return response.data;
+}
+
 // =========================================================
 // SEARCH PRODUCTS
 // =========================================================
@@ -393,6 +401,7 @@ const productService = {
   getAll,
   getById,
   getDetails,
+  getDetailsBySlug,
   search,
   create,
   update,

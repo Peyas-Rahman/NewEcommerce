@@ -7,60 +7,27 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { assetUrl } from "../../services/media";
+import { getHomepageSliders, type HomepageSlider } from "../../services/homepageSliderService";
 import hero1 from "../../assets/dexora-hero-1.png";
 import hero2 from "../../assets/dexora-hero-2.png";
 import hero3 from "../../assets/dexora-hero-3.png";
 
-interface HeroSlide {
-  image: string;
-  eyebrow: string;
-  title: string;
-  highlight: string;
-  description: string;
-  primaryButton: string;
-  secondaryButton: string;
-  badge?: string;
-}
-
-const slides: HeroSlide[] = [
-  {
-    image: hero1,
-    eyebrow: "DEXORA GAMING",
-    title: "LEVEL UP",
-    highlight: "YOUR GAME",
-    description:
-      "Premium gaming gear built for faster reactions, better control and an immersive experience.",
-    primaryButton: "Shop Gaming",
-    secondaryButton: "Explore Products",
-    badge: "GAMING COLLECTION",
-  },
-  {
-    image: hero2,
-    eyebrow: "BUILD WITHOUT LIMITS",
-    title: "POWER YOUR",
-    highlight: "PERFORMANCE",
-    description:
-      "Discover high-performance laptops, desktops, monitors and accessories designed for modern creators and gamers.",
-    primaryButton: "Explore PCs",
-    secondaryButton: "View Components",
-    badge: "PERFORMANCE SERIES",
-  },
-  {
-    image: hero3,
-    eyebrow: "DEXORA TECHNOLOGIES",
-    title: "TECH FOR",
-    highlight: "EVERY MOMENT",
-    description:
-      "From everyday essentials to premium technology, find everything you need in one place.",
-    primaryButton: "Shop Now",
-    secondaryButton: "Browse Categories",
-    badge: "NEW COLLECTION",
-  },
+const fallbackSlides: HomepageSlider[] = [
+  { id: -1, imageUrl: hero1, badge: "GAMING COLLECTION", eyebrow: "DEXORA GAMING", title: "LEVEL UP", highlight: "YOUR GAME", description: "Premium gaming gear built for faster reactions, better control and an immersive experience.", primaryButtonText: "Shop Gaming", primaryButtonUrl: "/shop", secondaryButtonText: "Explore Products", secondaryButtonUrl: "/shop", sortOrder: 1, isActive: true },
+  { id: -2, imageUrl: hero2, badge: "PERFORMANCE SERIES", eyebrow: "BUILD WITHOUT LIMITS", title: "POWER YOUR", highlight: "PERFORMANCE", description: "Discover high-performance laptops, desktops, monitors and accessories designed for modern creators and gamers.", primaryButtonText: "Explore PCs", primaryButtonUrl: "/shop", secondaryButtonText: "View Components", secondaryButtonUrl: "/shop", sortOrder: 2, isActive: true },
+  { id: -3, imageUrl: hero3, badge: "NEW COLLECTION", eyebrow: "DEXORA TECHNOLOGIES", title: "TECH FOR", highlight: "EVERY MOMENT", description: "From everyday essentials to premium technology, find everything you need in one place.", primaryButtonText: "Shop Now", primaryButtonUrl: "/shop", secondaryButtonText: "Browse Categories", secondaryButtonUrl: "/shop", sortOrder: 3, isActive: true },
 ];
 
 export default function HeroSection() {
+  const [slides, setSlides] = useState<HomepageSlider[]>([]);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const visibleSlides = slides.length ? slides : fallbackSlides;
+
+  useEffect(() => {
+    getHomepageSliders(true).then(setSlides).catch(() => setSlides([]));
+  }, []);
 
   /* =========================================================
      AUTO SLIDER
@@ -71,14 +38,15 @@ export default function HeroSection() {
       return;
     }
 
+    if (visibleSlides.length < 2) return;
     const timer = setInterval(() => {
       setActiveSlide((previous) =>
-        previous === slides.length - 1 ? 0 : previous + 1
+        previous === visibleSlides.length - 1 ? 0 : previous + 1
       );
     }, 6000);
 
     return () => clearInterval(timer);
-  }, [isPaused]);
+  }, [isPaused, visibleSlides.length]);
 
   /* =========================================================
      NAVIGATION
@@ -86,13 +54,13 @@ export default function HeroSection() {
 
   const nextSlide = () => {
     setActiveSlide((previous) =>
-      previous === slides.length - 1 ? 0 : previous + 1
+      previous === visibleSlides.length - 1 ? 0 : previous + 1
     );
   };
 
   const previousSlide = () => {
     setActiveSlide((previous) =>
-      previous === 0 ? slides.length - 1 : previous - 1
+      previous === 0 ? visibleSlides.length - 1 : previous - 1
     );
   };
 
@@ -108,9 +76,9 @@ export default function HeroSection() {
             SLIDES
         ===================================================== */}
 
-        {slides.map((slide, index) => (
+        {visibleSlides.map((slide, index) => (
           <div
-            key={slide.image}
+            key={slide.id}
             className={`absolute inset-0 transition-opacity duration-700 ${
               activeSlide === index
                 ? "z-10 opacity-100"
@@ -120,7 +88,7 @@ export default function HeroSection() {
             {/* Background Image */}
 
             <img
-              src={slide.image}
+              src={slide.id < 0 ? slide.imageUrl : assetUrl(slide.imageUrl)}
               alt={slide.title}
               className="absolute inset-0 h-full w-full object-cover"
             />
@@ -185,19 +153,19 @@ export default function HeroSection() {
 
                 <div className="mt-7 flex flex-wrap items-center gap-3">
 
-                  <button className="group/button inline-flex h-12 items-center gap-2 rounded-xl bg-[#ff6b00] px-5 text-[13px] font-bold text-white shadow-lg shadow-orange-950/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e96000] hover:shadow-xl">
+                  <a href={slide.primaryButtonUrl} className="group/button inline-flex h-12 items-center gap-2 rounded-xl bg-[#ff6b00] px-5 text-[13px] font-bold text-white shadow-lg shadow-orange-950/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e96000] hover:shadow-xl">
 
-                    {slide.primaryButton}
+                    {slide.primaryButtonText}
 
                     <ChevronRight className="h-4 w-4 transition-transform group-hover/button:translate-x-0.5" />
 
-                  </button>
+                  </a>
 
-                  <button className="inline-flex h-12 items-center rounded-xl border border-white/25 bg-white/10 px-5 text-[13px] font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/15">
+                  <a href={slide.secondaryButtonUrl} className="inline-flex h-12 items-center rounded-xl border border-white/25 bg-white/10 px-5 text-[13px] font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/15">
 
-                    {slide.secondaryButton}
+                    {slide.secondaryButtonText}
 
-                  </button>
+                  </a>
 
                 </div>
 
@@ -237,9 +205,9 @@ export default function HeroSection() {
 
         <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-2 backdrop-blur-md">
 
-          {slides.map((slide, index) => (
+          {visibleSlides.map((slide, index) => (
             <button
-              key={slide.image}
+              key={slide.id}
               onClick={() => setActiveSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
               className={`h-1.5 rounded-full transition-all duration-300 ${
@@ -266,7 +234,7 @@ export default function HeroSection() {
             /
           </span>
 
-          {String(slides.length).padStart(2, "0")}
+          {String(visibleSlides.length).padStart(2, "0")}
 
         </div>
 

@@ -14,6 +14,7 @@ import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard";
 
 import MenuManagement from "./pages/Admin/MenuManagement/MenuManagement";
 import HeaderMenuSettings from "./pages/Admin/MenuManagement/HeaderMenuSettings";
+import HomepageSliderManagement from "./pages/Admin/HomepageSliderManagement/HomepageSliderManagement";
 
 import CategoryManagement from "./pages/Admin/CategoryManagement/CategoryManagement";
 import ProductManagement from "./pages/Admin/ProductManagement/ProductManagement";
@@ -28,6 +29,7 @@ import { LoginPage, RegisterPage } from "./pages/Customer/Auth/AuthPages";
 import CartPage from "./pages/Customer/Cart/CartPage";
 import CheckoutPage from "./pages/Customer/Checkout/CheckoutPage";
 import OrderSuccessPage from "./pages/Customer/Checkout/OrderSuccessPage";
+import InvoicePage from "./pages/Customer/Checkout/InvoicePage";
 import CustomerDashboard from "./pages/Customer/Dashboard/CustomerDashboard";
 import OrderDetailPage from "./pages/Customer/Dashboard/OrderDetailPage";
 import ProductDetailsPage from "./pages/Customer/Shop/ProductDetailsPage";
@@ -43,7 +45,7 @@ import WishlistPage from "./pages/Customer/Dashboard/WishlistPage";
 function Root() {
 
   const path = window.location.pathname;
-  const productMatch = path.match(/^\/product\/(\d+)\/?$/);
+  const productMatch = path.match(/^\/product\/([^/]+)\/?$/);
   const orderMatch = path.match(/^\/account\/orders\/(\d+)\/?$/);
 
 
@@ -192,6 +194,10 @@ function Root() {
     );
   }
 
+  if (path === "/admin/homepage-slider") {
+    return <AdminLayout><HomepageSliderManagement /></AdminLayout>;
+  }
+
 
   // =====================================================
   // CUSTOMER AUTHENTICATION
@@ -223,7 +229,7 @@ function Root() {
   }
 
   if (productMatch) {
-    return <ProductDetailsPage id={Number(productMatch[1])} />;
+    return <ProductDetailsPage slug={decodeURIComponent(productMatch[1])} />;
   }
 
 
@@ -242,6 +248,11 @@ function Root() {
   if (path === "/order-success") {
     const orderId = new URLSearchParams(window.location.search).get("id");
     return <OrderSuccessPage id={orderId ? Number(orderId) : undefined} />;
+  }
+
+  if (path === "/invoice") {
+    const orderId = new URLSearchParams(window.location.search).get("id");
+    return <InvoicePage id={orderId ? Number(orderId) : 0} />;
   }
 
 

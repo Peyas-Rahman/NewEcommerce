@@ -66,6 +66,19 @@ public class ProductsController : ControllerBase
         return Ok(product);
     }
 
+    [HttpGet("slug/{slug}/details")]
+    public async Task<IActionResult> GetDetailsBySlug(string slug)
+    {
+        var product = await _productService.GetDetailsBySlugAsync(slug);
+
+        if (product is null)
+        {
+            return NotFound(new { message = "Product not found." });
+        }
+
+        return Ok(product);
+    }
+
     // =========================================================
     // CREATE PRODUCT
     // =========================================================

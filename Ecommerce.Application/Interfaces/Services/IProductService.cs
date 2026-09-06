@@ -18,4 +18,6 @@ public interface IProductService
 
     Task<ProductDetailsDto?> GetDetailsAsync(int id);
 
+    Task<ProductDetailsDto?> GetDetailsBySlugAsync(string slug);
+
 }

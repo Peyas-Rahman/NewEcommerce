@@ -40,7 +40,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .HasMaxLength(250);
 
         builder.HasIndex(x => x.Slug)
-            .IsUnique();
+            .IsUnique()
+            .HasFilter("[IsDeleted] = 0");
 
         builder.HasIndex(x => x.SKU)
             .IsUnique();

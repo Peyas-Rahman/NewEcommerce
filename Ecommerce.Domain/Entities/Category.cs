@@ -14,6 +14,8 @@ public class Category : BaseEntity
 
     public bool IsActive { get; set; } = true;
 
+    public bool IsFeatured { get; set; }
+
     public int SortOrder { get; set; }
 
     public Category? ParentCategory { get; set; }

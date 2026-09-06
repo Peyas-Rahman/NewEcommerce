@@ -36,6 +36,7 @@ public class CategoryService : ICategoryService
                 ImageUrl = x.ImageUrl,
                 ParentCategoryId = x.ParentCategoryId,
                 IsActive = x.IsActive,
+                IsFeatured = x.IsFeatured,
                 SortOrder = x.SortOrder
             })
             .ToListAsync();
@@ -61,6 +62,7 @@ public class CategoryService : ICategoryService
                 ImageUrl = x.ImageUrl,
                 ParentCategoryId = x.ParentCategoryId,
                 IsActive = x.IsActive,
+                IsFeatured = x.IsFeatured,
                 SortOrder = x.SortOrder
             })
             .FirstOrDefaultAsync();
@@ -142,6 +144,9 @@ public class CategoryService : ICategoryService
 
             IsActive =
                 dto.IsActive,
+
+            IsFeatured =
+                dto.IsFeatured,
 
             SortOrder =
                 dto.SortOrder,
@@ -273,6 +278,9 @@ public class CategoryService : ICategoryService
 
         category.IsActive =
             dto.IsActive;
+
+        category.IsFeatured =
+            dto.IsFeatured;
 
         category.SortOrder =
             dto.SortOrder;

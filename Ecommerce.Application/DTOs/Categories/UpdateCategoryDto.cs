@@ -12,5 +12,7 @@ public class UpdateCategoryDto
 
     public bool IsActive { get; set; }
 
+    public bool IsFeatured { get; set; }
+
     public int SortOrder { get; set; }
 }
