@@ -9,6 +9,7 @@ using Ecommerce.Infrastructure.Services.Customers;
 using Ecommerce.Infrastructure.Services.Inventory;
 using Ecommerce.Infrastructure.Services.Menu;
 using Ecommerce.Infrastructure.Services.HomepageSliders;
+using Ecommerce.Infrastructure.Services.FlashSales;
 using Ecommerce.Infrastructure.Services.Order;
 using Ecommerce.Infrastructure.Services.Payment;
 using Ecommerce.Infrastructure.Services.ProductImages;
@@ -208,6 +209,7 @@ builder.Services.AddScoped<
     HeaderMenuSettingService>();
 
 builder.Services.AddScoped<IHomepageSliderService, HomepageSliderService>();
+builder.Services.AddScoped<IFlashSaleService, FlashSaleService>();
 
 // =====================================================
 // Authentication - JWT

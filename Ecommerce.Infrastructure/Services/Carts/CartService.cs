@@ -607,6 +607,23 @@ public class CartService : ICartService
                 }
             }
 
+            var flashSalePrice = await _context.FlashSales
+                .AsNoTracking()
+                .Where(x =>
+                    x.ProductId == item.ProductId &&
+                    x.IsActive &&
+                    !x.IsDeleted &&
+                    x.EndsAt > DateTime.UtcNow)
+                .Select(x => (decimal?)x.SalePrice)
+                .FirstOrDefaultAsync();
+
+            var regularPrice = variant?.Price ?? product.Price;
+
+            if (flashSalePrice.HasValue && flashSalePrice.Value < regularPrice)
+            {
+                unitPrice = flashSalePrice.Value;
+            }
+
             var totalPrice =
                 unitPrice * item.Quantity;
 

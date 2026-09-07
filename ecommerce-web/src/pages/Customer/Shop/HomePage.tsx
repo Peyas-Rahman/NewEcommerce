@@ -35,6 +35,7 @@ import {
 import type { Product } from "../../../types/product";
 import Toast from "../../../components/ui/Toast";
 import type { Category } from "../../../types/category";
+import { getFlashSales, type FlashSale } from "../../../services/flashSaleService";
 
 const money = (value: number) =>
   `৳${new Intl.NumberFormat("en-BD").format(value || 0)}`;
@@ -78,6 +79,7 @@ const getShortDescriptionItems = (value?: string | null) => {
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [flashSales, setFlashSales] = useState<FlashSale[]>([]);
   const [notice, setNotice] = useState("");
   const [quickProduct, setQuickProduct] = useState<Product | null>(null);
   const [quickDetails, setQuickDetails] = useState<Product | null>(null);
@@ -88,7 +90,9 @@ export default function HomePage() {
       .then(([items, groups]) => {
         setProducts(items);
         setCategories(groups);
+        return getFlashSales(true).catch(() => [] as FlashSale[]);
       })
+      .then(setFlashSales)
       .catch(() => setNotice("Unable to load products"));
   }, []);
 
@@ -175,6 +179,11 @@ export default function HomePage() {
         </div>
         {categories.length > 0 && (
           <FeaturedCategories categories={categories} />
+        )}
+        {flashSales.length > 0 && (
+          <FlashSaleSection
+            items={flashSales}
+          />
         )}
         {groups.map(
           (group) =>
@@ -334,9 +343,9 @@ function QuickViewModal({
         role="dialog"
         aria-modal="true"
         aria-label="Product quick view"
-        className="w-full max-w-6xl overflow-hidden rounded-none bg-white shadow-2xl"
+        className="flex max-h-[calc(100vh-2rem)] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-white/70 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.24)]"
       >
-        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-slate-100 bg-white px-5 py-4">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#ff6b00]">
             Quick View
           </p>
@@ -355,16 +364,16 @@ function QuickViewModal({
             Loading product details...
           </div>
         ) : (
-          <div className="grid gap-0 md:grid-cols-[1.15fr_0.85fr]">
-            <div className="border-r border-slate-200 bg-[#f5f8fb] p-6">
-              <div className="flex min-h-[380px] items-center justify-center rounded-2xl bg-[#edf4f8] p-8">
+          <div className="grid min-h-0 flex-1 gap-0 overflow-y-auto md:grid-cols-[0.92fr_1.08fr] md:overflow-hidden">
+            <div className="border-r border-slate-100 bg-[#f5f8fb] p-4 md:p-6">
+              <div className="flex min-h-[190px] items-center justify-center rounded-2xl border border-white/80 bg-[#edf4f8] p-4 md:min-h-[320px] md:p-6">
                 <img
                   src={assetUrl(
                     images[imageIndex]?.imageUrl ||
                       product.images?.[0]?.imageUrl,
                   )}
                   alt={product.name}
-                  className="max-h-[320px] w-full object-contain"
+                  className="max-h-[210px] w-full object-contain md:max-h-[280px]"
                 />
               </div>
 
@@ -392,12 +401,12 @@ function QuickViewModal({
               )}
             </div>
 
-            <div className="flex flex-col justify-center bg-white px-8 py-7">
+            <div className="flex min-h-0 flex-col bg-white px-6 py-6 md:px-8 md:py-7">
               <p className="text-xs font-black uppercase tracking-[0.2em] text-[#ff6b00]">
                 {product.brandName || "DEXORA"}
               </p>
 
-              <h2 className="mt-4 text-4xl font-black leading-tight text-slate-900">
+              <h2 className="mt-3 text-3xl font-black leading-tight text-slate-900 md:text-4xl">
                 {product.name}
               </h2>
 
@@ -414,11 +423,11 @@ function QuickViewModal({
               </p>
 
               {descriptionItems.length > 0 && (
-                <div className="mt-6">
+                <div className="mt-6 min-h-0">
                   <p className="text-lg font-bold text-slate-800">
                     Key Features
                   </p>
-                  <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-6 text-slate-500">
+                  <ul className="mt-3 max-h-[180px] overflow-y-auto pr-2 [scrollbar-width:thin] list-disc space-y-1.5 pl-5 text-sm leading-6 text-slate-500 md:max-h-[220px]">
                     {descriptionItems.map((item, index) => (
                       <li key={`${item}-${index}`}>{item}</li>
                     ))}
@@ -426,7 +435,7 @@ function QuickViewModal({
                 </div>
               )}
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
+              <div className="mt-6 flex shrink-0 flex-wrap items-center gap-3">
                 <button
                   type="button"
                   onClick={onCart}
@@ -481,6 +490,72 @@ function QuickViewModal({
         )}
       </div>
     </div>
+  );
+}
+
+function FlashSaleSection({
+  items,
+}: {
+  items: FlashSale[];
+}) {
+  return (
+    <section className="mt-10">
+      <div className="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.16em] text-orange-600">
+            Limited time deals
+          </p>
+          <h2 className="mt-1 flex items-center gap-2 text-2xl font-black text-slate-900">
+            <Zap className="h-6 w-6 fill-orange-500 text-orange-500" /> Flash Sale
+          </h2>
+        </div>
+        <a href="/shop?flashSale=true" className="text-sm font-bold text-slate-500 hover:text-orange-600">
+          View all <ArrowRight className="inline h-4 w-4" />
+        </a>
+      </div>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {items.slice(0, 6).map((item) => {
+          return <FlashSaleCard key={item.id} item={item} />;
+        })}
+      </div>
+    </section>
+  );
+}
+
+function FlashSaleCard({
+  item,
+}: {
+  item: FlashSale;
+}) {
+  const [remaining, setRemaining] = useState(() => Math.max(0, new Date(item.endsAt).getTime() - Date.now()));
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setRemaining(Math.max(0, new Date(item.endsAt).getTime() - Date.now()));
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [item.endsAt]);
+
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+  const saved = Math.max(0, item.originalPrice - item.salePrice);
+  const image = assetUrl(item.imageUrl);
+
+  return (
+    <article className="group overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="relative flex aspect-square items-center justify-center rounded-xl bg-slate-50 p-3">
+        {saved > 0 && <span className="absolute left-2 top-2 rounded bg-emerald-700 px-2 py-1 text-[10px] font-bold text-white">Save: {money(saved)}</span>}
+        <img src={image} alt={item.productName} className="h-full w-full object-contain" />
+      </div>
+      <h3 className="mt-3 line-clamp-2 min-h-9 text-xs font-bold text-slate-800">{item.productName}</h3>
+      <div className="mt-2 flex items-baseline gap-2"><strong className="text-sm font-black text-red-600">{money(item.salePrice)}</strong><span className="text-[10px] text-slate-400 line-through">{money(item.originalPrice)}</span></div>
+      <div className="mt-3 grid grid-cols-4 divide-x rounded-lg border border-orange-200 bg-orange-50 py-1 text-center text-orange-700">
+        {[[days, "Days"], [hours, "Hrs"], [minutes, "Min"], [seconds, "Sec"]].map(([value, label]) => <span key={String(label)}><strong className="block text-xs">{String(value).padStart(2, "0")}</strong><small className="text-[8px] uppercase">{label}</small></span>)}
+      </div>
+      <a href={`/product/${item.slug}`} className="mt-3 flex h-9 w-full items-center justify-center gap-1 rounded-lg bg-gradient-to-r from-orange-500 to-orange-700 text-xs font-bold text-white hover:from-orange-600 hover:to-orange-800"><Zap className="h-3.5 w-3.5 fill-current" /> View Deal</a>
+    </article>
   );
 }
 

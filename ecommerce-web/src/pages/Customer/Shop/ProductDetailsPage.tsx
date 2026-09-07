@@ -17,6 +17,7 @@ import {
   toggleWishlist,
 } from "../../../services/shoppingListService";
 import { assetUrl } from "../../../services/media";
+import { getFlashSales } from "../../../services/flashSaleService";
 
 const money = (value: number) =>
   `৳${new Intl.NumberFormat("en-BD").format(value || 0)}`;
@@ -38,6 +39,7 @@ export default function ProductDetailsPage({ slug }: { slug: string }) {
   const [image, setImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [busy, setBusy] = useState(false);
+  const [flashSalePrice, setFlashSalePrice] = useState<number | null>(null);
   useEffect(() => {
     const detailsRequest = /^\d+$/.test(slug)
       ? productService.getDetails(Number(slug))
@@ -47,6 +49,9 @@ export default function ProductDetailsPage({ slug }: { slug: string }) {
       .then((data) => {
         setProduct(data);
         setVariant(data?.variants?.find((item: any) => item.isActive));
+        return getFlashSales(true).then((sales) =>
+          setFlashSalePrice(sales.find((sale) => sale.productId === data.id)?.salePrice ?? null),
+        );
       })
       .catch((error: any) => setNotice(error?.message || "Product not found"));
   }, [slug]);
@@ -69,6 +74,7 @@ export default function ProductDetailsPage({ slug }: { slug: string }) {
       </>
     );
   const price =
+    flashSalePrice ??
     variant?.discountPrice ??
     variant?.price ??
     product.effectivePrice ??

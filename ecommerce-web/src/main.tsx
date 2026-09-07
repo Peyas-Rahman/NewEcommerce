@@ -15,6 +15,7 @@ import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard";
 import MenuManagement from "./pages/Admin/MenuManagement/MenuManagement";
 import HeaderMenuSettings from "./pages/Admin/MenuManagement/HeaderMenuSettings";
 import HomepageSliderManagement from "./pages/Admin/HomepageSliderManagement/HomepageSliderManagement";
+import FlashSaleManagement from "./pages/Admin/FlashSaleManagement/FlashSaleManagement";
 
 import CategoryManagement from "./pages/Admin/CategoryManagement/CategoryManagement";
 import ProductManagement from "./pages/Admin/ProductManagement/ProductManagement";
@@ -196,6 +197,10 @@ function Root() {
 
   if (path === "/admin/homepage-slider") {
     return <AdminLayout><HomepageSliderManagement /></AdminLayout>;
+  }
+
+  if (path === "/admin/flash-sales") {
+    return <AdminLayout><FlashSaleManagement /></AdminLayout>;
   }
 
 

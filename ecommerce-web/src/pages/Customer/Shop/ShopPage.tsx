@@ -20,12 +20,13 @@ import {
 import { assetUrl } from "../../../services/media";
 import type { Product } from "../../../types/product";
 import type { Category } from "../../../types/category";
+import { getFlashSales, type FlashSale } from "../../../services/flashSaleService";
 
 const money = (value: number) =>
   `৳${new Intl.NumberFormat("en-BD").format(value || 0)}`;
 
-const getPriceDetails = (product: Product) => {
-  const currentPrice = product.effectivePrice ?? product.discountPrice ?? product.price;
+const getPriceDetails = (product: Product, flashSalePrice?: number) => {
+  const currentPrice = flashSalePrice ?? product.effectivePrice ?? product.discountPrice ?? product.price;
   const previousPrice = product.price > currentPrice ? product.price : null;
   const savedAmount = previousPrice ? previousPrice - currentPrice : 0;
   const discountPercentage = previousPrice ? Math.round((savedAmount / previousPrice) * 100) : 0;
@@ -36,6 +37,7 @@ const getPriceDetails = (product: Product) => {
 export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [flashSales, setFlashSales] = useState<FlashSale[]>([]);
   const [query, setQuery] = useState(
     () => new URLSearchParams(window.location.search).get("search") || "",
   );
@@ -51,6 +53,9 @@ export default function ShopPage() {
   const [newArrivals] = useState(
     () => new URLSearchParams(window.location.search).get("new") === "true",
   );
+  const [flashSaleOnly] = useState(
+    () => new URLSearchParams(window.location.search).get("flashSale") === "true",
+  );
   const [sort, setSort] = useState("featured");
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState("");
@@ -59,10 +64,11 @@ export default function ShopPage() {
   const [quickLoading, setQuickLoading] = useState(false);
 
   useEffect(() => {
-    Promise.all([productService.getAll(), getAllCategories()])
-      .then(([items, groups]) => {
+    Promise.all([productService.getAll(), getAllCategories(), getFlashSales(true)])
+      .then(([items, groups, sales]) => {
         setProducts(items);
         setCategories(groups);
+        setFlashSales(sales);
       })
       .catch((error: any) =>
         setNotice(error?.message || "Unable to load products"),
@@ -86,6 +92,7 @@ export default function ShopPage() {
         .filter(
           (product) =>
             product.isActive &&
+            (!flashSaleOnly || flashSales.some((sale) => sale.productId === product.id)) &&
             (!offer || (product.discountPrice != null && product.discountPrice < product.price)) &&
             (!deal || (product.discountPrice != null && product.discountPrice < product.price)) &&
             (!newArrivals || product.isNewArrival) &&
@@ -96,15 +103,20 @@ export default function ShopPage() {
             (!category || categoryIds.has(product.categoryId)),
         )
         .sort((a, b) =>
-          sort === "price-low"
-            ? (a.effectivePrice ?? a.price) - (b.effectivePrice ?? b.price)
+          flashSaleOnly
+            ? (flashSales.find((sale) => sale.productId === a.id)?.sortOrder ?? 0) -
+              (flashSales.find((sale) => sale.productId === b.id)?.sortOrder ?? 0)
+            : sort === "price-low"
+            ? getPriceDetails(a, flashSales.find((sale) => sale.productId === a.id)?.salePrice).currentPrice -
+              getPriceDetails(b, flashSales.find((sale) => sale.productId === b.id)?.salePrice).currentPrice
             : sort === "price-high"
-              ? (b.effectivePrice ?? b.price) - (a.effectivePrice ?? a.price)
+              ? getPriceDetails(b, flashSales.find((sale) => sale.productId === b.id)?.salePrice).currentPrice -
+                getPriceDetails(a, flashSales.find((sale) => sale.productId === a.id)?.salePrice).currentPrice
               : sort === "new"
                 ? Number(b.isNewArrival) - Number(a.isNewArrival)
                 : Number(b.isFeatured) - Number(a.isFeatured),
         ),
-    [products, query, category, categoryIds, sort, offer, deal, newArrivals],
+    [products, query, category, categoryIds, sort, offer, deal, newArrivals, flashSaleOnly, flashSales],
   );
   const addToCart = async (product: Product, quantity = 1) => {
     try {
@@ -140,10 +152,16 @@ export default function ShopPage() {
   const openQuickView = async (product: Product) => {
     setQuickProduct(product);
     setQuickLoading(true);
+    const flashSalePrice = flashSales.find((sale) => sale.productId === product.id)?.salePrice;
     try {
-      setQuickDetails(await productService.getDetails(product.id));
+      const details = await productService.getDetails(product.id);
+      setQuickDetails(
+        flashSalePrice ? { ...details, effectivePrice: flashSalePrice } : details,
+      );
     } catch {
-      setQuickDetails(product);
+      setQuickDetails(
+        flashSalePrice ? { ...product, effectivePrice: flashSalePrice } : product,
+      );
     } finally {
       setQuickLoading(false);
     }
@@ -159,10 +177,10 @@ export default function ShopPage() {
               Dexora Store
             </p>
             <h1 className="mt-1 text-3xl font-black tracking-tight text-slate-900">
-              {newArrivals ? "New Arrivals" : offer || deal ? "Deals & Offers" : "Shop all products"}
+              {flashSaleOnly ? "Flash Sale" : newArrivals ? "New Arrivals" : offer || deal ? "Deals & Offers" : "Shop all products"}
             </h1>
             <p className="mt-1 text-sm text-slate-500">
-              {newArrivals ? "Discover the latest products in our collection." : offer || deal ? "Save more on selected products while stocks last." : "Technology, gaming and everyday essentials."}
+              {flashSaleOnly ? "Limited-time prices, available while stock lasts." : newArrivals ? "Discover the latest products in our collection." : offer || deal ? "Save more on selected products while stocks last." : "Technology, gaming and everyday essentials."}
             </p>
           </div>
           <div className="relative w-full md:w-[360px]">
@@ -232,7 +250,10 @@ export default function ShopPage() {
                 className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
               >
                 {(() => {
-                  const pricing = getPriceDetails(product);
+                  const pricing = getPriceDetails(
+                    product,
+                    flashSales.find((sale) => sale.productId === product.id)?.salePrice,
+                  );
                   return (
                     <>
                 <div className="relative aspect-square overflow-hidden bg-slate-50">
@@ -381,9 +402,9 @@ function QuickView({
         role="dialog"
         aria-modal="true"
         aria-label="Product quick view"
-        className="max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white shadow-2xl"
+        className="flex max-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/70 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.24)]"
       >
-        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-slate-100 bg-white px-5 py-4">
           <p className="text-xs font-bold uppercase tracking-[.18em] text-orange-600">
             Quick View
           </p>
@@ -400,13 +421,13 @@ function QuickView({
             Loading product details...
           </div>
         ) : (
-          <div className="grid gap-7 p-5 md:grid-cols-2 md:p-7">
+          <div className="grid min-h-0 flex-1 gap-7 overflow-y-auto p-4 md:grid-cols-2 md:overflow-hidden md:p-7">
             <div>
-              <div className="flex min-h-[320px] items-center justify-center rounded-2xl bg-slate-50 p-5">
+              <div className="flex min-h-[220px] items-center justify-center rounded-2xl bg-slate-50 p-4 md:min-h-[320px] md:p-5">
                 <img
                   src={assetUrl(images[image]?.imageUrl)}
                   alt={product.name}
-                  className="max-h-[350px] w-full object-contain"
+                  className="max-h-[230px] w-full object-contain md:max-h-[350px]"
                 />
               </div>
               {images.length > 1 && (
@@ -427,7 +448,7 @@ function QuickView({
                 </div>
               )}
             </div>
-            <div className="flex flex-col justify-center">
+            <div className="flex min-h-0 flex-col md:pr-2">
               <p className="text-xs font-bold uppercase tracking-[.16em] text-orange-600">
                 {product.brandName || "Dexora"}
               </p>
@@ -446,11 +467,11 @@ function QuickView({
               </p>
               {product.shortDescription && (
                 <div
-                  className="prose prose-sm mt-4 max-w-none text-slate-600"
+                  className="prose prose-sm mt-4 max-h-[180px] max-w-none overflow-y-auto pr-2 text-slate-600 [scrollbar-width:thin] md:max-h-[220px]"
                   dangerouslySetInnerHTML={{ __html: product.shortDescription }}
                 />
               )}
-              <div className="mt-7 flex flex-wrap gap-2">
+              <div className="mt-6 flex shrink-0 flex-wrap gap-2">
                 <button
                   onClick={onCart}
                   className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-orange-600 px-5 text-sm font-bold text-white"

@@ -4,6 +4,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ClipboardList,
+  Flame,
   FolderTree,
   LayoutDashboard,
   Menu,
@@ -93,6 +94,12 @@ const menuItems = [
     label: "Homepage Slider",
     path: "/admin/homepage-slider",
     icon: Images,
+    available: true,
+  },
+  {
+    label: "Flash Sale",
+    path: "/admin/flash-sales",
+    icon: Flame,
     available: true,
   },
 ];

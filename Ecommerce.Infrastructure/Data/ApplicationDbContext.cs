@@ -52,6 +52,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Payment> Payments { get; set; }
     public DbSet<HeaderMenuSetting> HeaderMenuSettings { get; set; }
     public DbSet<HomepageSlider> HomepageSliders { get; set; }
+    public DbSet<FlashSale> FlashSales { get; set; }
 
 
 
