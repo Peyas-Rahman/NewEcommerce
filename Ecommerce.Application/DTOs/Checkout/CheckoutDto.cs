@@ -38,4 +38,6 @@ public class CheckoutDto
         = string.Empty;
 
     public string? CustomerNote { get; set; }
+
+    public string? CouponCode { get; set; }
 }

@@ -88,7 +88,9 @@ public class ProductService : IProductService
         // -----------------------------------------------------
 
         var variantIds = product.Variants
-            .Where(x => x.IsActive)
+            .Where(x =>
+                x.IsActive &&
+                !x.IsDeleted)
             .Select(x => x.Id)
             .ToList();
 
@@ -179,7 +181,9 @@ public class ProductService : IProductService
         // -----------------------------------------------------
 
         var variants = product.Variants
-            .Where(x => x.IsActive)
+            .Where(x =>
+                x.IsActive &&
+                !x.IsDeleted)
             .OrderBy(x => x.SortOrder)
             .ThenBy(x => x.Name)
             .Select(x => new ProductVariantDto

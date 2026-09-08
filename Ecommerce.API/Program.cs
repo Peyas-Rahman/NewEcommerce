@@ -15,6 +15,7 @@ using Ecommerce.Infrastructure.Services.Payment;
 using Ecommerce.Infrastructure.Services.ProductImages;
 using Ecommerce.Infrastructure.Services.Products;
 using Ecommerce.Infrastructure.Services.ProductVariants;
+using Ecommerce.Infrastructure.Services.Coupons;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -161,6 +162,10 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<
     IProductVariantService,
     ProductVariantService>();
+
+builder.Services.AddScoped<IProductReviewService, ProductReviewService>();
+builder.Services.AddScoped<IProductQuestionService, ProductQuestionService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 
 builder.Services.AddScoped<
     IInventoryService,

@@ -33,6 +33,8 @@ public class CreateOrderDto
 
     public string? CustomerNote { get; set; }
 
+    public string? CouponCode { get; set; }
+
     public List<CreateOrderItemDto> Items { get; set; }
         = new();
 }

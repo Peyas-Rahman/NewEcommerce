@@ -416,7 +416,7 @@ export default function Header() {
               {/* FLASH DEALS */}
 
               <a
-                href="/shop?deal=flash"
+                href="/shop?flashSale=true"
                 className="
                   group
                   flex
@@ -700,21 +700,12 @@ export default function Header() {
 
               {/* ACCOUNT */}
 
-              <button
-                type="button"
-                onClick={() => { window.location.href = "/account"; }}
-                className="
-                  hidden
-                  items-center
-                  gap-2
-                  rounded-xl
-                  px-2.5
-                  py-2
-                  transition
-                  hover:bg-gray-50
-                  lg:flex
-                "
-              >
+              <div className="group relative hidden lg:block">
+                <button
+                  type="button"
+                  onClick={() => { window.location.href = "/account"; }}
+                  className="flex items-center gap-2 rounded-xl px-2.5 py-2 transition hover:bg-blue-50"
+                >
 
                 <div
                   className="
@@ -773,7 +764,15 @@ export default function Header() {
                   "
                 />
 
-              </button>
+                </button>
+                <div className="pointer-events-none absolute right-0 top-full z-[99999] w-52 translate-y-2 pt-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_18px_45px_rgba(15,23,42,0.16)]">
+                    <a href="/account" className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#0757c9]">My profile</a>
+                    <a href="/account/orders" className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#0757c9]">My orders</a>
+                    <a href="/wishlist" className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-orange-600">Wishlist</a>
+                  </div>
+                </div>
+              </div>
 
 
               {/* MOBILE ACCOUNT */}
@@ -803,29 +802,13 @@ export default function Header() {
 
               {/* CART */}
 
-              <button
-                type="button"
-                onClick={() => { window.location.href = "/cart"; }}
-                className="
-                  relative
-                  ml-1
-                  flex
-                  h-[45px]
-                  w-[45px]
-                  items-center
-                  justify-center
-                  rounded-xl
-                  bg-[#ff6b00]
-                  text-white
-                  shadow-sm
-                  transition
-                  duration-200
-                  hover:-translate-y-0.5
-                  hover:bg-[#e96000]
-                  hover:shadow-lg
-                "
-                aria-label="Shopping cart"
-              >
+              <div className="group relative ml-1">
+                <button
+                  type="button"
+                  onClick={() => { window.location.href = "/cart"; }}
+                  className="relative flex h-[45px] w-[45px] items-center justify-center rounded-xl bg-[#ff6b00] text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[#e96000] hover:shadow-lg"
+                  aria-label="Shopping cart"
+                >
 
                 <ShoppingCart className="h-[20px] w-[20px]" />
 
@@ -852,7 +835,18 @@ export default function Header() {
                   {cartCount}
                 </span>
 
-              </button>
+                </button>
+                <div className="pointer-events-none absolute right-0 top-full z-[99999] w-56 translate-y-2 pt-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_18px_45px_rgba(15,23,42,0.16)]">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-bold text-slate-900">Your cart</p>
+                      <span className="rounded-full bg-orange-50 px-2 py-1 text-[10px] font-bold text-orange-600">{cartCount} items</span>
+                    </div>
+                    <p className="mt-2 text-xs text-slate-500">Review your selected products before checkout.</p>
+                    <a href="/cart" className="mt-3 flex h-9 items-center justify-center rounded-xl bg-[#e65f00] text-xs font-bold text-white hover:bg-[#d95700]">View cart</a>
+                  </div>
+                </div>
+              </div>
 
             </div>
 
@@ -1077,7 +1071,7 @@ export default function Header() {
                 {menuSettings?.showDeals !== false && (
 
                   <a
-                    href="/deals"
+                    href="/shop?flashSale=true"
                     className="
                       group
                       flex
@@ -1350,7 +1344,7 @@ export default function Header() {
                   {menuSettings?.showDeals !== false && (
 
                     <a
-                      href="/deals"
+                      href="/shop?flashSale=true"
                       className="
                         mt-2
                         flex
@@ -1453,8 +1447,63 @@ export default function Header() {
 
       )}
 
+      {window.location.pathname === "/checkout" && <CheckoutCouponWidget />}
       <MobileBottomNav />
     </>
+  );
+}
+
+function CheckoutCouponWidget() {
+  const [code, setCode] = useState(() => localStorage.getItem("dexora_coupon_code") || "");
+  const [subtotal, setSubtotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const loadCart = async () => {
+      try {
+        const cart = await cartService.getCart();
+        setSubtotal(cart.subTotal || 0);
+      } catch {
+        setSubtotal(0);
+      }
+    };
+    void loadCart();
+  }, []);
+
+  const apply = async () => {
+    if (!code.trim()) return;
+    try {
+      setBusy(true);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || "/api"}/coupons/validate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: code.trim(), subTotal: subtotal }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.message || "Invalid coupon code");
+      localStorage.setItem("dexora_coupon_code", code.trim().toUpperCase());
+      setDiscount(data.discountAmount || 0);
+      setMessage(data.message || "Coupon applied successfully.");
+    } catch (error: any) {
+      localStorage.removeItem("dexora_coupon_code");
+      setDiscount(0);
+      setMessage(error?.message || "Invalid coupon code");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-24 right-4 z-[90] w-[min(360px,calc(100vw-2rem))] rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.18)]">
+      <p className="text-sm font-black text-slate-900">Have a coupon?</p>
+      <div className="mt-3 flex gap-2">
+        <input value={code} onChange={(event) => setCode(event.target.value)} placeholder="Enter coupon code" className="h-10 min-w-0 flex-1 rounded-xl border border-slate-200 px-3 text-sm uppercase outline-none focus:border-orange-400" />
+        <button type="button" disabled={busy} onClick={() => void apply()} className="rounded-xl bg-[#e65f00] px-4 text-xs font-bold text-white disabled:opacity-60">{busy ? "..." : "Apply"}</button>
+      </div>
+      {message && <div className={`mt-2 text-xs ${discount > 0 ? "text-emerald-600" : "text-red-600"}`}><p>{message}{discount > 0 && ` Save ৳${discount}`}</p>{discount > 0 && <p className="mt-1 font-bold text-slate-800">New total: ৳{Math.max(0, subtotal - discount)}</p>}</div>}
+    </div>
   );
 }
 
@@ -1682,8 +1731,10 @@ function DesktopMenuItem({
 
 function MobileMenuItem({
   item,
+  depth = 0,
 }: {
   item: MenuItem;
+  depth?: number;
 }) {
 
   const [open, setOpen] =
@@ -1823,70 +1874,13 @@ function MobileMenuItem({
 
           {item.children
             .slice()
-            .sort(
-              (a, b) =>
-                a.sortOrder - b.sortOrder
-            )
+            .sort((a, b) => a.sortOrder - b.sortOrder)
             .map((child) => (
-
-              <a
+              <MobileMenuItem
                 key={child.id}
-                    href={menuHref(child)}
-                target={
-                  child.openInNewTab
-                    ? "_blank"
-                    : undefined
-                }
-                rel={
-                  child.openInNewTab
-                    ? "noreferrer"
-                    : undefined
-                }
-                className="
-                  flex
-                  items-center
-                  justify-between
-                  rounded-lg
-                  px-3
-                  py-2.5
-                  text-[12px]
-                  text-gray-600
-                  transition
-                  hover:bg-[#f5f8ff]
-                  hover:text-[#0757c9]
-                "
-              >
-
-                <span>
-                  {child.title}
-                </span>
-
-
-                {child.badgeText && (
-
-                  <span
-                    className={`
-                      rounded-full
-                      px-1.5
-                      py-[1px]
-                      text-[7px]
-                      font-bold
-                      text-white
-                      ${
-                        child.badgeType?.toLowerCase() ===
-                        "new"
-                          ? "bg-[#0757c9]"
-                          : "bg-[#ff6b00]"
-                      }
-                    `}
-                  >
-                    {child.badgeText}
-                  </span>
-
-                )}
-
-              </a>
-
+                item={child}
+                depth={depth + 1}
+              />
             ))}
 
         </div>

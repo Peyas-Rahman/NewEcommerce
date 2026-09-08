@@ -3,6 +3,7 @@ using Ecommerce.Application.DTOs.Inventory;
 using Ecommerce.Application.Interfaces.Services;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Services.Coupons;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Services.Order;
@@ -234,6 +235,24 @@ public class OrderService : IOrderService
             // Create Order
             // -------------------------------------------------
 
+            decimal discountAmount = 0;
+            Coupon? coupon = null;
+
+            if (!string.IsNullOrWhiteSpace(dto.CouponCode))
+            {
+                coupon = await _context.Coupons.FirstOrDefaultAsync(x =>
+                    x.Code == dto.CouponCode.Trim().ToUpperInvariant() &&
+                    x.IsActive &&
+                    !x.IsDeleted);
+                if (coupon is null)
+                {
+                    throw new ArgumentException("Invalid or inactive coupon code.");
+                }
+                discountAmount = CouponService.Calculate(coupon, subTotal);
+                coupon.UsedCount++;
+                coupon.UpdatedAt = DateTime.UtcNow;
+            }
+
             var order =
                 new Domain.Entities.Order
                 {
@@ -255,14 +274,14 @@ public class OrderService : IOrderService
                     SubTotal =
                         subTotal,
 
-                    DiscountAmount = 0,
+                    DiscountAmount = discountAmount,
 
                     ShippingAmount = 0,
 
                     TaxAmount = 0,
 
                     GrandTotal =
-                        subTotal,
+                        subTotal - discountAmount,
 
                     OrderStatus =
                         "Pending",

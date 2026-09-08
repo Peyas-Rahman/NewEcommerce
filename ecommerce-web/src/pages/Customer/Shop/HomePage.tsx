@@ -506,7 +506,7 @@ function FlashSaleSection({
             Limited time deals
           </p>
           <h2 className="mt-1 flex items-center gap-2 text-2xl font-black text-slate-900">
-            <Zap className="h-6 w-6 fill-orange-500 text-orange-500" /> Flash Sale
+            <Zap className="h-6 w-6 animate-pulse fill-orange-500 text-orange-500" /> Flash Sale
           </h2>
         </div>
         <a href="/shop?flashSale=true" className="text-sm font-bold text-slate-500 hover:text-orange-600">
@@ -517,6 +517,15 @@ function FlashSaleSection({
         {items.slice(0, 6).map((item) => {
           return <FlashSaleCard key={item.id} item={item} />;
         })}
+      </div>
+      <div className="mt-6 flex justify-center">
+        <a
+          href="/shop?flashSale=true"
+          className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-orange-600 px-7 text-sm font-bold text-white shadow-[0_8px_20px_rgba(234,88,12,0.2)] transition hover:-translate-y-0.5 hover:bg-orange-700 motion-safe:animate-pulse"
+        >
+          Shop Now
+          <ArrowRight className="h-4 w-4" />
+        </a>
       </div>
     </section>
   );

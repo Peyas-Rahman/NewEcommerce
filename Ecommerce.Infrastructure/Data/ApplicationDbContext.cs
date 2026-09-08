@@ -21,6 +21,12 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
 
+    public DbSet<ProductReview> ProductReviews => Set<ProductReview>();
+
+    public DbSet<ProductQuestion> ProductQuestions => Set<ProductQuestion>();
+
+    public DbSet<Coupon> Coupons => Set<Coupon>();
+
     public DbSet<Inventory> Inventories { get; set; }
 
     public DbSet<InventoryTransaction> InventoryTransactions { get; set; }

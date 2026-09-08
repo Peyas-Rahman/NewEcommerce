@@ -257,6 +257,9 @@ public class CheckoutService : ICheckoutService
                 CustomerNote =
                     dto.CustomerNote?.Trim(),
 
+                CouponCode =
+                    dto.CouponCode?.Trim(),
+
                 Items =
                     orderItems
             };

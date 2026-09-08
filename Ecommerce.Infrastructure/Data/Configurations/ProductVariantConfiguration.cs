@@ -27,7 +27,8 @@ public class ProductVariantConfiguration : IEntityTypeConfiguration<ProductVaria
             .HasPrecision(18, 2);
 
         builder.HasIndex(x => x.SKU)
-            .IsUnique();
+            .IsUnique()
+            .HasFilter("[IsDeleted] = 0");
 
         builder.HasIndex(x => x.ProductId);
 
