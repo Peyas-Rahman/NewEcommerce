@@ -53,6 +53,28 @@ public interface IInventoryService
 
 
     // =====================================================
+    // STOCK DEDUCTION / RESTORE (ORDER FLOW)
+    // Caller owns the transaction.
+    // =====================================================
+
+    Task<InventoryDto?> DeductVariantStockInTransactionAsync(
+        int productVariantId,
+        DeductStockDto dto);
+
+    Task<InventoryDto?> DeductProductStockInTransactionAsync(
+        int productId,
+        DeductStockDto dto);
+
+    Task<InventoryDto?> RestoreVariantStockInTransactionAsync(
+        int productVariantId,
+        DeductStockDto dto);
+
+    Task<InventoryDto?> RestoreProductStockInTransactionAsync(
+        int productId,
+        DeductStockDto dto);
+
+
+    // =====================================================
     // RESERVATION
     // =====================================================
 

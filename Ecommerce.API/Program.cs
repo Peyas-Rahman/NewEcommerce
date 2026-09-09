@@ -239,6 +239,11 @@ builder.Services.AddAuthentication(
                 "JWT Key is not configured.");
         }
 
+        // The API is also served over plain HTTP in development.
+        // Without this the JWT handler tries to fetch HTTPS metadata
+        // and fails before ever validating the token.
+        options.RequireHttpsMetadata = false;
+
         options.TokenValidationParameters =
             new TokenValidationParameters
             {
@@ -259,7 +264,49 @@ builder.Services.AddAuthentication(
                 IssuerSigningKey =
                     new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(
-                            jwtKey))
+                            jwtKey)),
+
+                // Allow a small clock difference between machines
+                ClockSkew =
+                    TimeSpan.FromMinutes(5)
+            };
+
+        // Surface the real JWT failure reason to the console
+        options.Events =
+            new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    Console.WriteLine(
+                        $"[JWT] Authentication failed: " +
+                        $"{context.Exception.GetType().Name} - " +
+                        $"{context.Exception.Message}");
+
+                    return Task.CompletedTask;
+                },
+
+                OnChallenge = context =>
+                {
+                    Console.WriteLine(
+                        $"[JWT] Challenge: " +
+                        $"Error={context.Error}, " +
+                        $"Description={context.ErrorDescription}, " +
+                        $"AuthenticateFailure=" +
+                        $"{context.AuthenticateFailure?.Message}");
+
+                    return Task.CompletedTask;
+                },
+
+                OnMessageReceived = context =>
+                {
+                    Console.WriteLine(
+                        $"[JWT] Message received. " +
+                        $"HasAuthHeader=" +
+                        $"{context.Request.Headers.ContainsKey("Authorization")}, " +
+                        $"Token present={!string.IsNullOrEmpty(context.Token)}");
+
+                    return Task.CompletedTask;
+                }
             };
     });
 
@@ -295,7 +342,13 @@ if (app.Environment.IsDevelopment())
 // Middleware Pipeline
 // =====================================================
 
-app.UseHttpsRedirection();
+// Only redirect to HTTPS for browser navigations.
+// API calls carry an Authorization header which is dropped on a
+// 307 redirect, so API requests must not be redirected.
+app.UseWhen(
+    context => !context.Request.Path.StartsWithSegments("/api"),
+    branch => branch.UseHttpsRedirection());
+
 app.UseStaticFiles();
 
 

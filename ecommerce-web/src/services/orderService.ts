@@ -17,6 +17,37 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+export interface CreateOrderPayload {
+  customerId?: number | null;
+  guestName?: string | null;
+  guestPhone?: string | null;
+  guestEmail?: string | null;
+  shippingName: string;
+  shippingPhone: string;
+  shippingAddress: string;
+  shippingCity?: string | null;
+  shippingArea?: string | null;
+  shippingPostalCode?: string | null;
+  paymentMethod: string;
+  customerNote?: string | null;
+  couponCode?: string | null;
+  items: {
+    productId: number;
+    productVariantId?: number | null;
+    quantity: number;
+  }[];
+}
+
+export async function createOrder(
+  payload: CreateOrderPayload
+): Promise<Order> {
+  const response = await api.post<Order>(
+    "/orders",
+    payload
+  );
+  return response.data;
+}
+
 export async function getAllOrders(): Promise<Order[]> {
   const response = await api.get<Order[]>("/orders");
   return Array.isArray(response.data) ? response.data : [];
@@ -74,6 +105,7 @@ const orderService = {
   getOrderByNumber,
   updateOrderStatus,
   cancelOrder,
+  createOrder,
 };
 
 export default orderService;

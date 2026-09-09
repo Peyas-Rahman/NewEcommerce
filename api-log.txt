@@ -1,0 +1,1562 @@
+Using launch settings from e:\FinalEcommerceProject\Ecommerce.API\Properties\launchSettings.json...
+Building...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5100
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: https://localhost:7090
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: e:\FinalEcommerceProject\Ecommerce.API
+[JWT] Message received. HasAuthHeader=False, Token present=False
+warn: Microsoft.AspNetCore.Server.Kestrel[0]
+      Connection processing ended abnormally.
+      System.InvalidOperationException: Reading is already in progress.
+         at System.IO.Pipelines.ThrowHelper.ThrowInvalidOperationException_AlreadyReading()
+         at System.IO.Pipelines.Pipe.GetReadResult(ReadResult& result)
+         at System.IO.Pipelines.Pipe.ReadAsync(CancellationToken token)
+         at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Http1Connection.BeginRead(ValueTask`1& awaitable)
+         at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+         at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequestsAsync[TContext](IHttpApplication`1 application)
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Challenge: Error=, Description=, AuthenticateFailure=
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Challenge: Error=, Description=, AuthenticateFailure=
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (58ms) [Parameters=[@email='?' (Size = 150)], CommandType='Text', CommandTimeout='30']
+      SELECT CASE
+          WHEN EXISTS (
+              SELECT 1
+              FROM [Customers] AS [c]
+              WHERE [c].[Email] = @email AND [c].[IsDeleted] = CAST(0 AS bit)) THEN CAST(1 AS bit)
+          ELSE CAST(0 AS bit)
+      END
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 150), @p2='?' (Size = 100), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (Size = 100), @p9='?' (Size = 500), @p10='?' (Size = 20), @p11='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      INSERT INTO [Customers] ([CreatedAt], [Email], [FirstName], [IsActive], [IsDeleted], [IsEmailVerified], [IsPhoneVerified], [IsTwoFactorEnabled], [LastName], [PasswordHash], [Phone], [UpdatedAt])
+      OUTPUT INSERTED.[Id]
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11);
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [h].[Id], [h].[ImageUrl], [h].[Badge], [h].[Eyebrow], [h].[Title], [h].[Highlight], [h].[Description], [h].[PrimaryButtonText], [h].[PrimaryButtonUrl], [h].[SecondaryButtonText], [h].[SecondaryButtonUrl], [h].[SortOrder], [h].[IsActive]
+      FROM [HomepageSliders] AS [h]
+      WHERE [h].[IsDeleted] = CAST(0 AS bit) AND [h].[IsActive] = CAST(1 AS bit)
+      ORDER BY [h].[SortOrder], [h].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [h].[Id], [h].[ImageUrl], [h].[Badge], [h].[Eyebrow], [h].[Title], [h].[Highlight], [h].[Description], [h].[PrimaryButtonText], [h].[PrimaryButtonUrl], [h].[SecondaryButtonText], [h].[SecondaryButtonUrl], [h].[SortOrder], [h].[IsActive]
+      FROM [HomepageSliders] AS [h]
+      WHERE [h].[IsDeleted] = CAST(0 AS bit) AND [h].[IsActive] = CAST(1 AS bit)
+      ORDER BY [h].[SortOrder], [h].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[Email], [c].[FirstName], [c].[IsActive], [c].[IsDeleted], [c].[IsEmailVerified], [c].[IsPhoneVerified], [c].[IsTwoFactorEnabled], [c].[LastName], [c].[PasswordHash], [c].[Phone], [c].[UpdatedAt]
+      FROM [Customers] AS [c]
+      WHERE [c].[Id] = @customerId AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[AddressType], [c].[FullName], [c].[Phone], [c].[AddressLine], [c].[City], [c].[Area], [c].[PostalCode], [c].[IsDefault]
+      FROM [CustomerAddress] AS [c]
+      WHERE [c].[CustomerId] = @customerId AND [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[IsDefault] DESC, [c].[Id] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[ProductId], [p].[Name] AS [ProductName], (
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId]
+          ORDER BY [p0].[Id]) AS [ImageUrl], COALESCE((
+          SELECT TOP(1) COALESCE([p1].[Price], 0.0)
+          FROM [ProductVariants] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId] AND [p1].[IsActive] = CAST(1 AS bit)
+          ORDER BY [p1].[Id]), 0.0) AS [Price], [c].[CreatedAt]
+      FROM [CustomerWishlist] AS [c]
+      INNER JOIN [Products] AS [p] ON [c].[ProductId] = [p].[Id]
+      WHERE [c].[CustomerId] = @customerId AND [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[CreatedAt] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [o].[Id], [o].[CreatedAt], [o].[CustomerId], [o].[CustomerNote], [o].[DiscountAmount], [o].[GrandTotal], [o].[GuestEmail], [o].[GuestName], [o].[GuestPhone], [o].[IsDeleted], [o].[OrderNumber], [o].[OrderStatus], [o].[PaymentMethod], [o].[PaymentStatus], [o].[ShippingAddress], [o].[ShippingAmount], [o].[ShippingArea], [o].[ShippingCity], [o].[ShippingName], [o].[ShippingPhone], [o].[ShippingPostalCode], [o].[SubTotal], [o].[TaxAmount], [o].[UpdatedAt], [o0].[Id], [o0].[CreatedAt], [o0].[DiscountAmount], [o0].[IsDeleted], [o0].[OrderId], [o0].[ProductId], [o0].[ProductName], [o0].[ProductVariantId], [o0].[Quantity], [o0].[SKU], [o0].[TotalPrice], [o0].[UnitPrice], [o0].[UpdatedAt], [o0].[VariantName]
+      FROM [Orders] AS [o]
+      LEFT JOIN [OrderItems] AS [o0] ON [o].[Id] = [o0].[OrderId]
+      WHERE [o].[CustomerId] = @customerId AND [o].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [o].[CreatedAt] DESC, [o].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[AddressType], [c].[FullName], [c].[Phone], [c].[AddressLine], [c].[City], [c].[Area], [c].[PostalCode], [c].[IsDefault]
+      FROM [CustomerAddress] AS [c]
+      WHERE [c].[CustomerId] = @customerId AND [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[IsDefault] DESC, [c].[Id] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [o].[Id], [o].[CreatedAt], [o].[CustomerId], [o].[CustomerNote], [o].[DiscountAmount], [o].[GrandTotal], [o].[GuestEmail], [o].[GuestName], [o].[GuestPhone], [o].[IsDeleted], [o].[OrderNumber], [o].[OrderStatus], [o].[PaymentMethod], [o].[PaymentStatus], [o].[ShippingAddress], [o].[ShippingAmount], [o].[ShippingArea], [o].[ShippingCity], [o].[ShippingName], [o].[ShippingPhone], [o].[ShippingPostalCode], [o].[SubTotal], [o].[TaxAmount], [o].[UpdatedAt], [o0].[Id], [o0].[CreatedAt], [o0].[DiscountAmount], [o0].[IsDeleted], [o0].[OrderId], [o0].[ProductId], [o0].[ProductName], [o0].[ProductVariantId], [o0].[Quantity], [o0].[SKU], [o0].[TotalPrice], [o0].[UnitPrice], [o0].[UpdatedAt], [o0].[VariantName]
+      FROM [Orders] AS [o]
+      LEFT JOIN [OrderItems] AS [o0] ON [o].[Id] = [o0].[OrderId]
+      WHERE [o].[CustomerId] = @customerId AND [o].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [o].[CreatedAt] DESC, [o].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[ProductId], [p].[Name] AS [ProductName], (
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId]
+          ORDER BY [p0].[Id]) AS [ImageUrl], COALESCE((
+          SELECT TOP(1) COALESCE([p1].[Price], 0.0)
+          FROM [ProductVariants] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId] AND [p1].[IsActive] = CAST(1 AS bit)
+          ORDER BY [p1].[Id]), 0.0) AS [Price], [c].[CreatedAt]
+      FROM [CustomerWishlist] AS [c]
+      INNER JOIN [Products] AS [p] ON [c].[ProductId] = [p].[Id]
+      WHERE [c].[CustomerId] = @customerId AND [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[CreatedAt] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[Email], [c].[FirstName], [c].[IsActive], [c].[IsDeleted], [c].[IsEmailVerified], [c].[IsPhoneVerified], [c].[IsTwoFactorEnabled], [c].[LastName], [c].[PasswordHash], [c].[Phone], [c].[UpdatedAt]
+      FROM [Customers] AS [c]
+      WHERE [c].[Id] = @customerId AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [h].[Id], [h].[ImageUrl], [h].[Badge], [h].[Eyebrow], [h].[Title], [h].[Highlight], [h].[Description], [h].[PrimaryButtonText], [h].[PrimaryButtonUrl], [h].[SecondaryButtonText], [h].[SecondaryButtonUrl], [h].[SortOrder], [h].[IsActive]
+      FROM [HomepageSliders] AS [h]
+      WHERE [h].[IsDeleted] = CAST(0 AS bit) AND [h].[IsActive] = CAST(1 AS bit)
+      ORDER BY [h].[SortOrder], [h].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [h].[Id], [h].[ImageUrl], [h].[Badge], [h].[Eyebrow], [h].[Title], [h].[Highlight], [h].[Description], [h].[PrimaryButtonText], [h].[PrimaryButtonUrl], [h].[SecondaryButtonText], [h].[SecondaryButtonUrl], [h].[SortOrder], [h].[IsActive]
+      FROM [HomepageSliders] AS [h]
+      WHERE [h].[IsDeleted] = CAST(0 AS bit) AND [h].[IsActive] = CAST(1 AS bit)
+      ORDER BY [h].[SortOrder], [h].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@slug='?' (Size = 280)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [p].[Id]
+      FROM [Products] AS [p]
+      WHERE [p].[Slug] = @slug AND [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+warn: Microsoft.EntityFrameworkCore.Query[20504]
+      Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[@id='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [s].[Id], [s].[BrandId], [s].[CategoryId], [s].[CreatedAt], [s].[Description], [s].[DiscountPrice], [s].[IsActive], [s].[IsBestSeller], [s].[IsDeleted], [s].[IsFeatured], [s].[IsNewArrival], [s].[Name], [s].[Price], [s].[SKU], [s].[ShortDescription], [s].[Slug], [s].[SortOrder], [s].[UpdatedAt], [s].[Warranty], [s].[Id0], [s].[CreatedAt0], [s].[Description0], [s].[ImageUrl], [s].[IsActive0], [s].[IsDeleted0], [s].[IsFeatured0], [s].[Name0], [s].[ParentCategoryId], [s].[Slug0], [s].[SortOrder0], [s].[UpdatedAt0], [s].[Id1], [s].[CreatedAt1], [s].[Description1], [s].[IsActive1], [s].[IsDeleted1], [s].[LogoUrl], [s].[Name1], [s].[Slug1], [s].[SortOrder1], [s].[UpdatedAt1], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt], [p1].[Id], [p1].[CreatedAt], [p1].[DiscountPrice], [p1].[IsActive], [p1].[IsDeleted], [p1].[Name], [p1].[Price], [p1].[ProductId], [p1].[SKU], [p1].[SortOrder], [p1].[TrackInventory], [p1].[UpdatedAt]
+      FROM (
+          SELECT TOP(1) [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id] AS [Id0], [c].[CreatedAt] AS [CreatedAt0], [c].[Description] AS [Description0], [c].[ImageUrl], [c].[IsActive] AS [IsActive0], [c].[IsDeleted] AS [IsDeleted0], [c].[IsFeatured] AS [IsFeatured0], [c].[Name] AS [Name0], [c].[ParentCategoryId], [c].[Slug] AS [Slug0], [c].[SortOrder] AS [SortOrder0], [c].[UpdatedAt] AS [UpdatedAt0], [b].[Id] AS [Id1], [b].[CreatedAt] AS [CreatedAt1], [b].[Description] AS [Description1], [b].[IsActive] AS [IsActive1], [b].[IsDeleted] AS [IsDeleted1], [b].[LogoUrl], [b].[Name] AS [Name1], [b].[Slug] AS [Slug1], [b].[SortOrder] AS [SortOrder1], [b].[UpdatedAt] AS [UpdatedAt1]
+          FROM [Products] AS [p]
+          INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+          LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+          WHERE [p].[Id] = @id AND [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ) AS [s]
+      LEFT JOIN [ProductImages] AS [p0] ON [s].[Id] = [p0].[ProductId]
+      LEFT JOIN [ProductVariants] AS [p1] ON [s].[Id] = [p1].[ProductId]
+      ORDER BY [s].[Id], [s].[Id0], [s].[Id1], [p0].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@variantIds1='?' (DbType = Int32), @variantIds2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(SUM([i].[StockQuantity] - [i].[ReservedQuantity]), 0)
+      FROM [Inventories] AS [i]
+      WHERE [i].[ProductVariantId] IS NOT NULL AND [i].[ProductVariantId] IN (@variantIds1, @variantIds2) AND [i].[IsActive] = CAST(1 AS bit) AND [i].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@slug='?' (Size = 280)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [p].[Id]
+      FROM [Products] AS [p]
+      WHERE [p].[Slug] = @slug AND [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [s].[Id], [s].[BrandId], [s].[CategoryId], [s].[CreatedAt], [s].[Description], [s].[DiscountPrice], [s].[IsActive], [s].[IsBestSeller], [s].[IsDeleted], [s].[IsFeatured], [s].[IsNewArrival], [s].[Name], [s].[Price], [s].[SKU], [s].[ShortDescription], [s].[Slug], [s].[SortOrder], [s].[UpdatedAt], [s].[Warranty], [s].[Id0], [s].[CreatedAt0], [s].[Description0], [s].[ImageUrl], [s].[IsActive0], [s].[IsDeleted0], [s].[IsFeatured0], [s].[Name0], [s].[ParentCategoryId], [s].[Slug0], [s].[SortOrder0], [s].[UpdatedAt0], [s].[Id1], [s].[CreatedAt1], [s].[Description1], [s].[IsActive1], [s].[IsDeleted1], [s].[LogoUrl], [s].[Name1], [s].[Slug1], [s].[SortOrder1], [s].[UpdatedAt1], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt], [p1].[Id], [p1].[CreatedAt], [p1].[DiscountPrice], [p1].[IsActive], [p1].[IsDeleted], [p1].[Name], [p1].[Price], [p1].[ProductId], [p1].[SKU], [p1].[SortOrder], [p1].[TrackInventory], [p1].[UpdatedAt]
+      FROM (
+          SELECT TOP(1) [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id] AS [Id0], [c].[CreatedAt] AS [CreatedAt0], [c].[Description] AS [Description0], [c].[ImageUrl], [c].[IsActive] AS [IsActive0], [c].[IsDeleted] AS [IsDeleted0], [c].[IsFeatured] AS [IsFeatured0], [c].[Name] AS [Name0], [c].[ParentCategoryId], [c].[Slug] AS [Slug0], [c].[SortOrder] AS [SortOrder0], [c].[UpdatedAt] AS [UpdatedAt0], [b].[Id] AS [Id1], [b].[CreatedAt] AS [CreatedAt1], [b].[Description] AS [Description1], [b].[IsActive] AS [IsActive1], [b].[IsDeleted] AS [IsDeleted1], [b].[LogoUrl], [b].[Name] AS [Name1], [b].[Slug] AS [Slug1], [b].[SortOrder] AS [SortOrder1], [b].[UpdatedAt] AS [UpdatedAt1]
+          FROM [Products] AS [p]
+          INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+          LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+          WHERE [p].[Id] = @id AND [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ) AS [s]
+      LEFT JOIN [ProductImages] AS [p0] ON [s].[Id] = [p0].[ProductId]
+      LEFT JOIN [ProductVariants] AS [p1] ON [s].[Id] = [p1].[ProductId]
+      ORDER BY [s].[Id], [s].[Id0], [s].[Id1], [p0].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32), @variantIds2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(SUM([i].[StockQuantity] - [i].[ReservedQuantity]), 0)
+      FROM [Inventories] AS [i]
+      WHERE [i].[ProductVariantId] IS NOT NULL AND [i].[ProductVariantId] IN (@variantIds1, @variantIds2) AND [i].[IsActive] = CAST(1 AS bit) AND [i].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@productId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[ProductId], [p].[CustomerId], [c].[FirstName] + CASE
+          WHEN [c].[LastName] IS NULL OR [c].[LastName] = N'' THEN N''
+          ELSE N' ' + COALESCE([c].[LastName], N'')
+      END AS [CustomerName], [p].[Question], [p].[Answer], [p].[CreatedAt]
+      FROM [ProductQuestions] AS [p]
+      INNER JOIN [Customers] AS [c] ON [p].[CustomerId] = [c].[Id]
+      WHERE [p].[ProductId] = @productId AND [p].[IsApproved] = CAST(1 AS bit) AND [p].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [p].[CreatedAt] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@productId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[ProductId], [p].[CustomerId], [c].[FirstName] + CASE
+          WHEN [c].[LastName] IS NULL OR [c].[LastName] = N'' THEN N''
+          ELSE N' ' + COALESCE([c].[LastName], N'')
+      END AS [CustomerName], [p].[Rating], [p].[Title], [p].[Comment], [p].[CreatedAt]
+      FROM [ProductReviews] AS [p]
+      INNER JOIN [Customers] AS [c] ON [p].[CustomerId] = [c].[Id]
+      WHERE [p].[ProductId] = @productId AND [p].[IsApproved] = CAST(1 AS bit) AND [p].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [p].[CreatedAt] DESC
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@productId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[ProductId], [p].[CustomerId], [c].[FirstName] + CASE
+          WHEN [c].[LastName] IS NULL OR [c].[LastName] = N'' THEN N''
+          ELSE N' ' + COALESCE([c].[LastName], N'')
+      END AS [CustomerName], [p].[Rating], [p].[Title], [p].[Comment], [p].[CreatedAt]
+      FROM [ProductReviews] AS [p]
+      INNER JOIN [Customers] AS [c] ON [p].[CustomerId] = [c].[Id]
+      WHERE [p].[ProductId] = @productId AND [p].[IsApproved] = CAST(1 AS bit) AND [p].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [p].[CreatedAt] DESC
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@productId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[ProductId], [p].[CustomerId], [c].[FirstName] + CASE
+          WHEN [c].[LastName] IS NULL OR [c].[LastName] = N'' THEN N''
+          ELSE N' ' + COALESCE([c].[LastName], N'')
+      END AS [CustomerName], [p].[Question], [p].[Answer], [p].[CreatedAt]
+      FROM [ProductQuestions] AS [p]
+      INNER JOIN [Customers] AS [c] ON [p].[CustomerId] = [c].[Id]
+      WHERE [p].[ProductId] = @productId AND [p].[IsApproved] = CAST(1 AS bit) AND [p].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [p].[CreatedAt] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE 0 = 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@dto_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @dto_ProductId AND [p].[IsActive] = CAST(1 AS bit) AND [p].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@dto_ProductVariantId_Value='?' (DbType = Int32), @dto_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @dto_ProductVariantId_Value AND [p].[ProductId] = @dto_ProductId AND [p].[IsActive] = CAST(1 AS bit) AND [p].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@cart_Id='?' (DbType = Int32), @dto_ProductId='?' (DbType = Int32), @dto_ProductVariantId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cart_Id AND [c].[ProductId] = @dto_ProductId AND [c].[ProductVariantId] = @dto_ProductVariantId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@cart_Id='?' (DbType = Int32), @dto_ProductId='?' (DbType = Int32), @dto_ProductVariantId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cart_Id AND [c].[ProductId] = @dto_ProductId AND [c].[ProductVariantId] = @dto_ProductVariantId AND [c].[IsDeleted] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      UPDATE [CartItems] SET [IsDeleted] = @p0, [UpdatedAt] = @p1
+      OUTPUT 1
+      WHERE [Id] = @p2;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[AddressType], [c].[FullName], [c].[Phone], [c].[AddressLine], [c].[City], [c].[Area], [c].[PostalCode], [c].[IsDefault]
+      FROM [CustomerAddress] AS [c]
+      WHERE [c].[CustomerId] = @customerId AND [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[IsDefault] DESC, [c].[Id] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@customerId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[AddressType], [c].[FullName], [c].[Phone], [c].[AddressLine], [c].[City], [c].[Area], [c].[PostalCode], [c].[IsDefault]
+      FROM [CustomerAddress] AS [c]
+      WHERE [c].[CustomerId] = @customerId AND [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[IsDefault] DESC, [c].[Id] DESC
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@code='?' (Size = 40)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[Code], [c].[CreatedAt], [c].[DiscountType], [c].[DiscountValue], [c].[ExpiresAt], [c].[IsActive], [c].[IsDeleted], [c].[MaximumDiscountAmount], [c].[MinimumOrderAmount], [c].[StartsAt], [c].[UpdatedAt], [c].[UsageLimit], [c].[UsedCount]
+      FROM [Coupons] AS [c]
+      WHERE [c].[Code] = @code AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [h].[Id], [h].[ImageUrl], [h].[Badge], [h].[Eyebrow], [h].[Title], [h].[Highlight], [h].[Description], [h].[PrimaryButtonText], [h].[PrimaryButtonUrl], [h].[SecondaryButtonText], [h].[SecondaryButtonUrl], [h].[SortOrder], [h].[IsActive]
+      FROM [HomepageSliders] AS [h]
+      WHERE [h].[IsDeleted] = CAST(0 AS bit) AND [h].[IsActive] = CAST(1 AS bit)
+      ORDER BY [h].[SortOrder], [h].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [h].[Id], [h].[ImageUrl], [h].[Badge], [h].[Eyebrow], [h].[Title], [h].[Highlight], [h].[Description], [h].[PrimaryButtonText], [h].[PrimaryButtonUrl], [h].[SecondaryButtonText], [h].[SecondaryButtonUrl], [h].[SortOrder], [h].[IsActive]
+      FROM [HomepageSliders] AS [h]
+      WHERE [h].[IsDeleted] = CAST(0 AS bit) AND [h].[IsActive] = CAST(1 AS bit)
+      ORDER BY [h].[SortOrder], [h].[Id]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [h].[Id], [h].[Alignment], [h].[CreatedAt], [h].[IsActive], [h].[IsDeleted], [h].[IsSticky], [h].[ShowAllCategories], [h].[ShowDeals], [h].[Spacing], [h].[UpdatedAt]
+      FROM [HeaderMenuSettings] AS [h]
+      WHERE [h].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [m].[Id], [m].[BadgeText], [m].[BadgeType], [m].[CategoryId], [m].[CreatedAt], [m].[Icon], [m].[IsActive], [m].[IsDeleted], [m].[OpenInNewTab], [m].[ParentMenuItemId], [m].[ShowInHeader], [m].[SortOrder], [m].[Title], [m].[UpdatedAt], [m].[Url], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt]
+      FROM [MenuItems] AS [m]
+      LEFT JOIN [Categories] AS [c] ON [m].[CategoryId] = [c].[Id]
+      ORDER BY [m].[SortOrder]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@customerId_Value='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[CustomerId] = @customerId_Value AND [c].[IsActive] = CAST(1 AS bit) AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CreatedAt], [c].[CustomerId], [c].[GuestToken], [c].[IsActive], [c].[IsDeleted], [c].[UpdatedAt]
+      FROM [Carts] AS [c]
+      WHERE [c].[Id] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@cartId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[CartId], [c].[CreatedAt], [c].[IsDeleted], [c].[ProductId], [c].[ProductVariantId], [c].[Quantity], [c].[UpdatedAt]
+      FROM [CartItems] AS [c]
+      WHERE [c].[CartId] = @cartId AND [c].[IsDeleted] = CAST(0 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty]
+      FROM [Products] AS [p]
+      WHERE [p].[Id] = @productIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@variantIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CreatedAt], [p].[DiscountPrice], [p].[IsActive], [p].[IsDeleted], [p].[Name], [p].[Price], [p].[ProductId], [p].[SKU], [p].[SortOrder], [p].[TrackInventory], [p].[UpdatedAt]
+      FROM [ProductVariants] AS [p]
+      WHERE [p].[Id] = @variantIds1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@productIds1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[AltText], [p].[CreatedAt], [p].[ImageUrl], [p].[IsDeleted], [p].[IsPrimary], [p].[ProductId], [p].[SortOrder], [p].[UpdatedAt]
+      FROM [ProductImages] AS [p]
+      WHERE [p].[ProductId] = @productIds1 AND [p].[IsPrimary] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@item_ProductId='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [f].[SalePrice]
+      FROM [FlashSales] AS [f]
+      WHERE [f].[ProductId] = @item_ProductId AND [f].[IsActive] = CAST(1 AS bit) AND [f].[IsDeleted] = CAST(0 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+[JWT] Message received. HasAuthHeader=False, Token present=False
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+[JWT] Message received. HasAuthHeader=True, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[Id], [c].[Name], [c].[Slug], [c].[Description], [c].[ImageUrl], [c].[ParentCategoryId], [c].[IsActive], [c].[IsFeatured], [c].[SortOrder]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsDeleted] = CAST(0 AS bit)
+      ORDER BY [c].[ParentCategoryId], [c].[SortOrder], [c].[Name]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[BrandId], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[DiscountPrice], [p].[IsActive], [p].[IsBestSeller], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewArrival], [p].[Name], [p].[Price], [p].[SKU], [p].[ShortDescription], [p].[Slug], [p].[SortOrder], [p].[UpdatedAt], [p].[Warranty], [c].[Id], [c].[CreatedAt], [c].[Description], [c].[ImageUrl], [c].[IsActive], [c].[IsDeleted], [c].[IsFeatured], [c].[Name], [c].[ParentCategoryId], [c].[Slug], [c].[SortOrder], [c].[UpdatedAt], [b].[Id], [b].[CreatedAt], [b].[Description], [b].[IsActive], [b].[IsDeleted], [b].[LogoUrl], [b].[Name], [b].[Slug], [b].[SortOrder], [b].[UpdatedAt], [p0].[Id], [p0].[AltText], [p0].[CreatedAt], [p0].[ImageUrl], [p0].[IsDeleted], [p0].[IsPrimary], [p0].[ProductId], [p0].[SortOrder], [p0].[UpdatedAt]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]
+      LEFT JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[Id]
+      LEFT JOIN [ProductImages] AS [p0] ON [p].[Id] = [p0].[ProductId]
+      WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[SortOrder], [p].[Name], [p].[Id], [c].[Id], [b].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]
+[JWT] Message received. HasAuthHeader=False, Token present=False
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [f].[Id], [f].[ProductId], [p].[Name] AS [ProductName], [p].[Slug], COALESCE((
+          SELECT TOP(1) [p0].[ImageUrl]
+          FROM [ProductImages] AS [p0]
+          WHERE [p].[Id] = [p0].[ProductId] AND [p0].[IsPrimary] = CAST(1 AS bit)), (
+          SELECT TOP(1) [p1].[ImageUrl]
+          FROM [ProductImages] AS [p1]
+          WHERE [p].[Id] = [p1].[ProductId]
+          ORDER BY [p1].[SortOrder])) AS [ImageUrl], [p].[Price] AS [OriginalPrice], [f].[SalePrice], [f].[EndsAt], [f].[IsActive], [f].[SortOrder]
+      FROM [FlashSales] AS [f]
+      INNER JOIN [Products] AS [p] ON [f].[ProductId] = [p].[Id]
+      WHERE [f].[IsDeleted] = CAST(0 AS bit) AND [p].[IsActive] = CAST(1 AS bit) AND [f].[IsActive] = CAST(1 AS bit) AND [f].[EndsAt] > GETUTCDATE()
+      ORDER BY [f].[SortOrder], [f].[Id]

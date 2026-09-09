@@ -20,7 +20,9 @@ import FlashSaleManagement from "./pages/Admin/FlashSaleManagement/FlashSaleMana
 import CategoryManagement from "./pages/Admin/CategoryManagement/CategoryManagement";
 import ProductManagement from "./pages/Admin/ProductManagement/ProductManagement";
 import OrderManagement from "./pages/Admin/OrderManagement/OrderManagement";
+import PosTerminal from "./pages/Admin/PosTerminal/PosTerminal";
 import InventoryManagement from "./pages/Admin/InventoryManagement/InventoryManagement";
+import CouponManagement from "./pages/Admin/CouponManagement/CouponManagement";
 
 import BrandManagement from "./pages/Admin/BrandManagement/BrandManagement";
 import CustomerManagement from "./pages/Admin/CustomerManagement/CustomerManagement";
@@ -74,6 +76,19 @@ function Root() {
     return (
       <AdminLayout>
         <OrderManagement />
+      </AdminLayout>
+    );
+  }
+
+
+  // =====================================================
+  // ADMIN POS TERMINAL
+  // =====================================================
+
+  if (path === "/admin/pos") {
+    return (
+      <AdminLayout>
+        <PosTerminal />
       </AdminLayout>
     );
   }
@@ -201,6 +216,14 @@ function Root() {
 
   if (path === "/admin/flash-sales") {
     return <AdminLayout><FlashSaleManagement /></AdminLayout>;
+  }
+
+  if (path === "/admin/coupons") {
+    return (
+      <AdminLayout>
+        <CouponManagement />
+      </AdminLayout>
+    );
   }
 
 

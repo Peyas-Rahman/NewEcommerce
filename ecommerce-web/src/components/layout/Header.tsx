@@ -1447,63 +1447,8 @@ export default function Header() {
 
       )}
 
-      {window.location.pathname === "/checkout" && <CheckoutCouponWidget />}
       <MobileBottomNav />
     </>
-  );
-}
-
-function CheckoutCouponWidget() {
-  const [code, setCode] = useState(() => localStorage.getItem("dexora_coupon_code") || "");
-  const [subtotal, setSubtotal] = useState(0);
-  const [discount, setDiscount] = useState(0);
-  const [message, setMessage] = useState("");
-  const [busy, setBusy] = useState(false);
-
-  useEffect(() => {
-    const loadCart = async () => {
-      try {
-        const cart = await cartService.getCart();
-        setSubtotal(cart.subTotal || 0);
-      } catch {
-        setSubtotal(0);
-      }
-    };
-    void loadCart();
-  }, []);
-
-  const apply = async () => {
-    if (!code.trim()) return;
-    try {
-      setBusy(true);
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || "/api"}/coupons/validate`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: code.trim(), subTotal: subtotal }),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data?.message || "Invalid coupon code");
-      localStorage.setItem("dexora_coupon_code", code.trim().toUpperCase());
-      setDiscount(data.discountAmount || 0);
-      setMessage(data.message || "Coupon applied successfully.");
-    } catch (error: any) {
-      localStorage.removeItem("dexora_coupon_code");
-      setDiscount(0);
-      setMessage(error?.message || "Invalid coupon code");
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  return (
-    <div className="fixed bottom-24 right-4 z-[90] w-[min(360px,calc(100vw-2rem))] rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.18)]">
-      <p className="text-sm font-black text-slate-900">Have a coupon?</p>
-      <div className="mt-3 flex gap-2">
-        <input value={code} onChange={(event) => setCode(event.target.value)} placeholder="Enter coupon code" className="h-10 min-w-0 flex-1 rounded-xl border border-slate-200 px-3 text-sm uppercase outline-none focus:border-orange-400" />
-        <button type="button" disabled={busy} onClick={() => void apply()} className="rounded-xl bg-[#e65f00] px-4 text-xs font-bold text-white disabled:opacity-60">{busy ? "..." : "Apply"}</button>
-      </div>
-      {message && <div className={`mt-2 text-xs ${discount > 0 ? "text-emerald-600" : "text-red-600"}`}><p>{message}{discount > 0 && ` Save ৳${discount}`}</p>{discount > 0 && <p className="mt-1 font-bold text-slate-800">New total: ৳{Math.max(0, subtotal - discount)}</p>}</div>}
-    </div>
   );
 }
 

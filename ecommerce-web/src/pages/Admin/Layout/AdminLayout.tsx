@@ -8,12 +8,14 @@ import {
   FolderTree,
   LayoutDashboard,
   Menu,
+  MonitorSmartphone,
   PanelTop,
   Images,
   PackageSearch,
   ShoppingCart,
   Store,
   Tags,
+  TicketPercent,
   Users,
   X,
 } from "lucide-react";
@@ -52,6 +54,12 @@ const menuItems = [
     label: "Orders",
     path: "/admin/orders",
     icon: ShoppingCart,
+    available: true,
+  },
+  {
+    label: "POS Terminal",
+    path: "/admin/pos",
+    icon: MonitorSmartphone,
     available: true,
   },
   {
@@ -100,6 +108,12 @@ const menuItems = [
     label: "Flash Sale",
     path: "/admin/flash-sales",
     icon: Flame,
+    available: true,
+  },
+  {
+    label: "Coupons",
+    path: "/admin/coupons",
+    icon: TicketPercent,
     available: true,
   },
 ];

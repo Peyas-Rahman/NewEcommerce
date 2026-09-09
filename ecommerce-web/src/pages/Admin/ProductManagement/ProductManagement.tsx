@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 
 import productService from "../../../services/productService";
+import inventoryService from "../../../services/inventoryService";
 
 import type {
   Product,
@@ -81,6 +82,7 @@ interface VariantForm {
   price: string;
   discountPrice: string;
   trackInventory: boolean;
+  initialStock: string;
   isActive: boolean;
   sortOrder: number;
 }
@@ -112,6 +114,7 @@ const emptyVariant: VariantForm = {
   price: "",
   discountPrice: "",
   trackInventory: true,
+  initialStock: "",
   isActive: true,
   sortOrder: 1,
 };
@@ -1308,6 +1311,29 @@ const uploadImages = async () => {
           created,
         ]
       );
+
+      // Auto-create the variant's inventory with the
+      // given starting stock so orders deduct correctly
+      if (variant.trackInventory && created?.id) {
+        try {
+          await inventoryService.createInventory(
+            editingId,
+            created.id,
+            {
+              stockQuantity:
+                Math.max(
+                  0,
+                  Number(variant.initialStock) || 0
+                ),
+              reservedQuantity: 0,
+              reorderLevel: 0,
+              isActive: true,
+            }
+          );
+        } catch {
+          // Inventory row already exists — ignore
+        }
+      }
 
       setVariant({
         ...emptyVariant,
@@ -2859,6 +2885,29 @@ const uploadImages = async () => {
                         Track Inventory
 
                       </label>
+
+
+                      {variant.trackInventory && (
+                        <input
+                          type="number"
+                          min={0}
+                          value={variant.initialStock}
+                          onChange={(event) =>
+                            setVariant(
+                              (previous) => ({
+                                ...previous,
+                                initialStock:
+                                  event.target.value,
+                              })
+                            )
+                          }
+                          placeholder="Initial Stock (optional)"
+                          className="form-input"
+                          disabled={
+                            !editingId
+                          }
+                        />
+                      )}
 
 
                       <button

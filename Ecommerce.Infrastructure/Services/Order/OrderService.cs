@@ -151,14 +151,14 @@ public class OrderService : IOrderService
                     unitPrice * itemDto.Quantity;
 
                 // -------------------------------------------------
-                // Reserve Inventory
+                // Deduct Inventory
                 // -------------------------------------------------
 
                 if (variant is not null &&
                     variant.TrackInventory)
                 {
-                    var reserveDto =
-                        new ReserveStockDto
+                    var deductDto =
+                        new DeductStockDto
                         {
                             Quantity =
                                 itemDto.Quantity,
@@ -170,20 +170,63 @@ public class OrderService : IOrderService
                                 orderNumber,
 
                             Note =
-                                "Stock reserved for order."
+                                "Stock deducted for order."
                         };
 
                     var inventory =
                         await _inventoryService
-                            .ReserveStockInTransactionAsync(
+                            .DeductVariantStockInTransactionAsync(
                                 variant.Id,
-                                reserveDto);
+                                deductDto);
 
                     if (inventory is null)
                     {
-                        throw new ArgumentException(
-                            $"Inventory not found for variant {variant.Id}.");
+                        // No inventory row yet — create one with
+                        // unlimited stock so the sale never blocks,
+                        // then deduct from it
+                        inventory =
+                            await _inventoryService.CreateAsync(
+                                variant.Id,
+                                new CreateInventoryDto
+                                {
+                                    StockQuantity =
+                                        int.MaxValue,
+
+                                    ReservedQuantity = 0,
+                                    ReorderLevel = 0,
+                                    IsActive = true
+                                });
+
+                        if (inventory is not null)
+                        {
+                            await _inventoryService
+                                .DeductVariantStockInTransactionAsync(
+                                    variant.Id,
+                                    deductDto);
+                        }
                     }
+                }
+                else if (variant is null)
+                {
+                    // Simple product (no variant) — deduct product-level
+                    // inventory when it exists, otherwise skip
+                    await _inventoryService
+                        .DeductProductStockInTransactionAsync(
+                            product.Id,
+                            new DeductStockDto
+                            {
+                                Quantity =
+                                    itemDto.Quantity,
+
+                                ReferenceType =
+                                    "Order",
+
+                                ReferenceId =
+                                    orderNumber,
+
+                                Note =
+                                    "Stock deducted for order."
+                            });
                 }
 
                 // -------------------------------------------------
@@ -601,49 +644,69 @@ public class OrderService : IOrderService
         try
         {
             // -------------------------------------------------
-            // Release Reserved Inventory
+            // Restore Deducted Inventory
             // -------------------------------------------------
 
             foreach (var item in order.OrderItems)
             {
-                if (!item.ProductVariantId.HasValue)
+                if (item.ProductVariantId.HasValue)
                 {
-                    continue;
-                }
+                    var variant =
+                        await _context.ProductVariants
+                            .FirstOrDefaultAsync(x =>
+                                x.Id ==
+                                item.ProductVariantId.Value &&
+                                !x.IsDeleted);
 
-                var variant =
-                    await _context.ProductVariants
-                        .FirstOrDefaultAsync(x =>
-                            x.Id ==
-                            item.ProductVariantId.Value &&
-                            !x.IsDeleted);
-
-                if (variant is null ||
-                    !variant.TrackInventory)
-                {
-                    continue;
-                }
-
-                var releaseDto =
-                    new ReleaseStockDto
+                    if (variant is null ||
+                        !variant.TrackInventory)
                     {
-                        Quantity =
-                            item.Quantity,
+                        continue;
+                    }
 
-                        ReferenceType =
-                            "OrderCancellation",
+                    var restoreDto =
+                        new DeductStockDto
+                        {
+                            Quantity =
+                                item.Quantity,
 
-                        ReferenceId =
-                            order.OrderNumber,
+                            ReferenceType =
+                                "OrderCancellation",
 
-                        Note =
-                            "Reserved stock released because order was cancelled."
-                    };
+                            ReferenceId =
+                                order.OrderNumber,
 
-                await _inventoryService
-                    .ReleaseStockInTransactionAsync(
-                        variant.Id,
-                        releaseDto);
+                            Note =
+                                "Stock restored because order was cancelled."
+                        };
+
+                    await _inventoryService
+                        .RestoreVariantStockInTransactionAsync(
+                            variant.Id,
+                            restoreDto);
+                }
+                else
+                {
+                    // Simple product — restore product-level inventory
+                    // when it exists, otherwise skip
+                    await _inventoryService
+                        .RestoreProductStockInTransactionAsync(
+                            item.ProductId,
+                            new DeductStockDto
+                            {
+                                Quantity =
+                                    item.Quantity,
+
+                                ReferenceType =
+                                    "OrderCancellation",
+
+                                ReferenceId =
+                                    order.OrderNumber,
+
+                                Note =
+                                    "Stock restored because order was cancelled."
+                            });
+                }
             }
 
             // -------------------------------------------------

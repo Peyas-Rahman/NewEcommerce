@@ -24,4 +24,30 @@ public class CouponsController : ControllerBase
         try { return Ok(await _service.CreateAsync(dto)); }
         catch (ArgumentException ex) { return BadRequest(new { message = ex.Message }); }
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        return Ok(await _service.GetAllAsync());
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, CreateCouponDto dto)
+    {
+        try
+        {
+            var updated = await _service.UpdateAsync(id, dto);
+            if (updated is null) return NotFound();
+            return Ok(updated);
+        }
+        catch (ArgumentException ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _service.DeleteAsync(id);
+        if (!deleted) return NotFound();
+        return Ok(new { message = "Coupon deleted successfully." });
+    }
 }

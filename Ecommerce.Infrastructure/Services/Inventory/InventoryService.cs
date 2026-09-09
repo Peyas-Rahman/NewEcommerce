@@ -403,6 +403,105 @@ public class InventoryService : IInventoryService
 
 
     // =========================================================
+    // DEDUCT / RESTORE STOCK (ORDER FLOW)
+    // Caller owns the transaction.
+    // =========================================================
+
+    public async Task<InventoryDto?>
+        DeductVariantStockInTransactionAsync(
+            int productVariantId,
+            DeductStockDto dto)
+    {
+        ValidateDeduction(dto.Quantity);
+
+        var inventory =
+            await _context.Inventories
+                .FirstOrDefaultAsync(x =>
+                    x.ProductVariantId ==
+                        productVariantId &&
+                    !x.IsDeleted &&
+                    x.IsActive);
+
+        if (inventory is null)
+            return null;
+
+        return await DeductWithoutTransactionAsync(
+            inventory,
+            dto);
+    }
+
+
+    public async Task<InventoryDto?>
+        DeductProductStockInTransactionAsync(
+            int productId,
+            DeductStockDto dto)
+    {
+        ValidateDeduction(dto.Quantity);
+
+        var inventory =
+            await _context.Inventories
+                .FirstOrDefaultAsync(x =>
+                    x.ProductId == productId &&
+                    x.ProductVariantId == null &&
+                    !x.IsDeleted &&
+                    x.IsActive);
+
+        if (inventory is null)
+            return null;
+
+        return await DeductWithoutTransactionAsync(
+            inventory,
+            dto);
+    }
+
+
+    public async Task<InventoryDto?>
+        RestoreVariantStockInTransactionAsync(
+            int productVariantId,
+            DeductStockDto dto)
+    {
+        ValidateDeduction(dto.Quantity);
+
+        var inventory =
+            await _context.Inventories
+                .FirstOrDefaultAsync(x =>
+                    x.ProductVariantId ==
+                        productVariantId &&
+                    !x.IsDeleted);
+
+        if (inventory is null)
+            return null;
+
+        return await RestoreWithoutTransactionAsync(
+            inventory,
+            dto);
+    }
+
+
+    public async Task<InventoryDto?>
+        RestoreProductStockInTransactionAsync(
+            int productId,
+            DeductStockDto dto)
+    {
+        ValidateDeduction(dto.Quantity);
+
+        var inventory =
+            await _context.Inventories
+                .FirstOrDefaultAsync(x =>
+                    x.ProductId == productId &&
+                    x.ProductVariantId == null &&
+                    !x.IsDeleted);
+
+        if (inventory is null)
+            return null;
+
+        return await RestoreWithoutTransactionAsync(
+            inventory,
+            dto);
+    }
+
+
+    // =========================================================
     // RESERVE STOCK - VARIANT
     // =========================================================
 
@@ -867,6 +966,169 @@ public class InventoryService : IInventoryService
         {
             await transaction.RollbackAsync();
             throw;
+        }
+    }
+
+
+    // =========================================================
+    // INTERNAL - DEDUCT WITHOUT TRANSACTION
+    // Used when caller already has transaction
+    // =========================================================
+
+    private async Task<InventoryDto?>
+        DeductWithoutTransactionAsync(
+            InventoryEntity inventory,
+            DeductStockDto dto)
+    {
+        // Ensure the entity is tracked by the current DbContext —
+        // otherwise StockQuantity changes would never be saved
+        if (_context.Entry(inventory).State ==
+            EntityState.Detached)
+        {
+            _context.Inventories.Attach(inventory);
+        }
+
+        if (dto.Quantity > inventory.StockQuantity)
+        {
+            throw new ArgumentException(
+                "Insufficient stock.");
+        }
+
+        var stockBefore =
+            inventory.StockQuantity;
+
+        inventory.StockQuantity -=
+            dto.Quantity;
+
+        // Reserved quantity can never exceed physical stock
+        if (inventory.ReservedQuantity >
+            inventory.StockQuantity)
+        {
+            inventory.ReservedQuantity =
+                inventory.StockQuantity;
+        }
+
+        inventory.UpdatedAt =
+            DateTime.UtcNow;
+
+        var inventoryTransaction =
+            new InventoryTransactionEntity
+            {
+                InventoryId =
+                    inventory.Id,
+
+                Quantity =
+                    dto.Quantity,
+
+                QuantityBefore =
+                    stockBefore,
+
+                QuantityAfter =
+                    inventory.StockQuantity,
+
+                TransactionType =
+                    "Sale",
+
+                ReferenceType =
+                    dto.ReferenceType?.Trim(),
+
+                ReferenceId =
+                    dto.ReferenceId?.Trim(),
+
+                Note =
+                    dto.Note?.Trim(),
+
+                CreatedAt =
+                    DateTime.UtcNow,
+
+                IsDeleted =
+                    false
+            };
+
+        _context.InventoryTransactions.Add(
+            inventoryTransaction);
+
+        await _context.SaveChangesAsync();
+
+        return MapToDto(inventory);
+    }
+
+
+    // =========================================================
+    // INTERNAL - RESTORE WITHOUT TRANSACTION
+    // Used when caller already has transaction
+    // =========================================================
+
+    private async Task<InventoryDto?>
+        RestoreWithoutTransactionAsync(
+            InventoryEntity inventory,
+            DeductStockDto dto)
+    {
+        if (_context.Entry(inventory).State ==
+            EntityState.Detached)
+        {
+            _context.Inventories.Attach(inventory);
+        }
+
+        var stockBefore =
+            inventory.StockQuantity;
+
+        inventory.StockQuantity +=
+            dto.Quantity;
+
+        inventory.UpdatedAt =
+            DateTime.UtcNow;
+
+        var inventoryTransaction =
+            new InventoryTransactionEntity
+            {
+                InventoryId =
+                    inventory.Id,
+
+                Quantity =
+                    dto.Quantity,
+
+                QuantityBefore =
+                    stockBefore,
+
+                QuantityAfter =
+                    inventory.StockQuantity,
+
+                TransactionType =
+                    "Return",
+
+                ReferenceType =
+                    dto.ReferenceType?.Trim(),
+
+                ReferenceId =
+                    dto.ReferenceId?.Trim(),
+
+                Note =
+                    dto.Note?.Trim(),
+
+                CreatedAt =
+                    DateTime.UtcNow,
+
+                IsDeleted =
+                    false
+            };
+
+        _context.InventoryTransactions.Add(
+            inventoryTransaction);
+
+        await _context.SaveChangesAsync();
+
+        return MapToDto(inventory);
+    }
+
+
+    private static void ValidateDeduction(
+        int quantity)
+    {
+        if (quantity <= 0)
+        {
+            throw new ArgumentException(
+                "Quantity must be greater than zero.");
         }
     }
 

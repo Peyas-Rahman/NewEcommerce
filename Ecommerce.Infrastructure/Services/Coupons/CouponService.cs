@@ -48,5 +48,57 @@ public class CouponService : ICouponService
         return Math.Round(Math.Min(discount, subTotal), 2);
     }
 
+    public async Task<IEnumerable<CouponDto>> GetAllAsync()
+    {
+        return await _context.Coupons
+            .AsNoTracking()
+            .Where(x => !x.IsDeleted)
+            .OrderByDescending(x => x.Id)
+            .Select(x => Map(x))
+            .ToListAsync();
+    }
+
+    public async Task<CouponDto?> UpdateAsync(int id, CreateCouponDto dto)
+    {
+        var coupon = await _context.Coupons
+            .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+
+        if (coupon is null) return null;
+
+        var code = dto.Code.Trim().ToUpperInvariant();
+        if (string.IsNullOrWhiteSpace(code)) throw new ArgumentException("Coupon code is required.");
+        if (dto.DiscountType is not ("Percentage" or "Fixed")) throw new ArgumentException("Discount type must be Percentage or Fixed.");
+        if (dto.DiscountValue <= 0) throw new ArgumentException("Discount value must be greater than zero.");
+        if (dto.DiscountType == "Percentage" && dto.DiscountValue > 100) throw new ArgumentException("Percentage discount cannot exceed 100.");
+        if (await _context.Coupons.AnyAsync(x => x.Code == code && x.Id != id && !x.IsDeleted)) throw new ArgumentException("Coupon code already exists.");
+
+        coupon.Code = code;
+        coupon.DiscountType = dto.DiscountType;
+        coupon.DiscountValue = dto.DiscountValue;
+        coupon.MinimumOrderAmount = dto.MinimumOrderAmount;
+        coupon.MaximumDiscountAmount = dto.MaximumDiscountAmount;
+        coupon.UsageLimit = dto.UsageLimit;
+        coupon.StartsAt = dto.StartsAt;
+        coupon.ExpiresAt = dto.ExpiresAt;
+        coupon.IsActive = dto.IsActive;
+        coupon.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+        return Map(coupon);
+    }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var coupon = await _context.Coupons
+            .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+
+        if (coupon is null) return false;
+
+        coupon.IsDeleted = true;
+        coupon.UpdatedAt = DateTime.UtcNow;
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
     private static CouponDto Map(Coupon x) => new() { Id = x.Id, Code = x.Code, DiscountType = x.DiscountType, DiscountValue = x.DiscountValue, MinimumOrderAmount = x.MinimumOrderAmount, MaximumDiscountAmount = x.MaximumDiscountAmount, UsageLimit = x.UsageLimit, UsedCount = x.UsedCount, StartsAt = x.StartsAt, ExpiresAt = x.ExpiresAt, IsActive = x.IsActive };
 }
