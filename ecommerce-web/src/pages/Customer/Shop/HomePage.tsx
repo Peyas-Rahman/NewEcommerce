@@ -664,9 +664,15 @@ function Footer() {
       <div className="mx-auto max-w-[1440px] px-4 py-10 md:px-6">
         <div className="grid gap-8 md:grid-cols-4">
           <div>
-            <p className="text-xl font-black">DEXORA</p>
-            <p className="mt-3 text-sm leading-6 text-white/50">
-              Technology, gaming and everyday essentials.
+            <p className="text-xl font-black">Contact Us</p>
+            <p className="mt-3 text-sm leading-6 text-white/50" >
+              Hotline: +880 1979 81 22 00
+            </p>
+            <p className="mt-3 text-sm leading-6 text-white/50" >
+              Email: info@dexora.com
+            </p>
+            <p className="mt-3 text-sm leading-6 text-white/50" >
+              5/9 Circle A, Mirpur, Dhaka, Bangladesh.
             </p>
           </div>
           <div>
